@@ -10,7 +10,14 @@ var UserSchema = new mongoose.Schema({
         unique: true
     },
     hash: String,
-    salt: String
+    salt: String,
+    email: {
+        type: String,
+        lowercase: true,
+        unique: true
+    },
+    watchList: [String],
+    watched: [{type: mongoose.Schema.Types.ObjectId, ref: 'WatchedMovie'}]
 });
 
 

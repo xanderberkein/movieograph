@@ -12,15 +12,17 @@ var passport = require('passport');
 require('./models/Users');
 require('./models/Posts');
 require('./models/Comments');
+require('./models/WatchedMovies')
 
 require('./config/passport');
 
-mongoose.connect('mongodb://localhost/news');
+mongoose.connect('mongodb://localhost/movieograph');
 
 
 var index = require('./routes/index');
 var auth = require('./routes/auth');
 var post = require('./routes/post');
+var watchedMovie = require('./routes/watchedMovie');
 var users = require('./routes/users');
 
 var app = express();
@@ -41,6 +43,7 @@ app.use(passport.initialize());
 
 app.use('/', index);
 app.use('/', auth);
+app.use('/watched', watchedMovie);
 app.use('/posts', post);
 app.use('/users', users);
 
