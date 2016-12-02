@@ -5,11 +5,31 @@ var jwt = require('express-jwt');
 
 // models
 var WatchedMovie = mongoose.model('WatchedMovie');
+var User = mongoose.model('User');
 
 // middlewares
 var auth = jwt({
   secret: 'SECRET',
   userProperty: 'payload'
+});
+
+
+router.param('user', function(req, res, next, id) {
+    var query = User.findById(id);
+
+    query.exec(function(err, user) {
+        if (err) {
+            return next(err);
+        }
+
+        if (!user) {
+            return next(new Error('can\'t find user'));
+        }
+
+        req.user = user;
+
+        return next();
+    });
 });
 
 // params
@@ -21,7 +41,7 @@ router.param('watched', function(req, res, next, id) {
       return next(err);
     }
 
-    if ( ! watchedMovie) {
+    if (!watchedMovie) {
       return next(new Error('can\'t find movie'));
     }
 
@@ -47,8 +67,22 @@ router.get('/', function(req, res, next) {
 
 });
 
+// get All 4 1 user
+router.get('/user/:user', function(req, res, next) {
 
-// get1
+    req.user.populate('watched', function (err, user) {
+        if(err){
+            return next(err);
+        }
+
+        res.json(user.watched);
+
+    });
+
+});
+
+
+// get: api/watched/watchedMovieId
 router.get('/:watched', function(req, res, next) {
 
     res.json(req.watchedMovie);
@@ -57,14 +91,65 @@ router.get('/:watched', function(req, res, next) {
 
 
 // create new
-//router.post('/', auth, function (req, res, next) {
-router.post('/', function (req, res, next) {
+// post: api/watched
+router.post('/', auth, function (req, res, next) {
+
+    var body = req.body;
+    if (!body.watchedOn) {
+        return res.status(400).json({message: 'Gelieve de bekijkdatum in te vullen'});
+    }
 
     var watchedMovie = new WatchedMovie(req.body);
+    var userid = req.payload._id;
 
-    // post.author = req.payload.username;
+    var query = User.findById(userid);
 
-    watchedMovie.save(function (err, watchedMovie) {
+    query.exec(function(err, user){
+        if(err){
+            return next(err);
+        }
+
+        if(!user){
+            return next(new Error('User not found'))
+        }
+
+        watchedMovie.save(function (err, watchedMovie) {
+            if (err) {
+                return next(err);
+            }
+
+            user.watched.push(watchedMovie);
+            user.save(function(err){
+                if(err){
+                    return next(err);
+                }
+            })
+
+            res.json(watchedMovie);
+        });
+
+    });
+
+
+});
+
+
+// Edit watchedMovie
+//router.put('/:watched/', auth, function (req, res, next) {
+router.put('/:watched/', function (req, res, next) {
+
+    var watchedMovie = req.watchedMovie;
+    var body = req.body;
+
+    if (!body.watchedOn) {
+        return res.status(400).json({message: 'Gelieve de bekijkdatum in te vullen'});
+    }
+
+    watchedMovie.watchedOn = body.watchedOn;
+    watchedMovie.rating = body.rating;
+    watchedMovie.note = body.note;
+
+    menu.save(function(err, watchedMovie) {
         if (err) {
             return next(err);
         }
@@ -72,5 +157,7 @@ router.post('/', function (req, res, next) {
         res.json(watchedMovie);
     });
 });
+
+
 
 module.exports = router;

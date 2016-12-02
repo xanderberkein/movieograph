@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var WatchedMovieSchema = new mongoose.Schema({
-    movie: String,
+    movieId: String,
     watchedOn: Date,
     rating: Number,
     note: String

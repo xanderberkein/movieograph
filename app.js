@@ -12,7 +12,8 @@ var passport = require('passport');
 require('./models/Users');
 require('./models/Posts');
 require('./models/Comments');
-require('./models/WatchedMovies')
+require('./models/WatchedMovies');
+require('./models/Activities');
 
 require('./config/passport');
 

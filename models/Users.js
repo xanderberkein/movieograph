@@ -17,7 +17,8 @@ var UserSchema = new mongoose.Schema({
         unique: true
     },
     watchList: [String],
-    watched: [{type: mongoose.Schema.Types.ObjectId, ref: 'WatchedMovie'}]
+    watched: [{type: mongoose.Schema.Types.ObjectId, ref: 'WatchedMovie'}],
+    activities: [{type: mongoose.Schema.Types.ObjectId, ref: 'Activity'}]
 });
 
 
