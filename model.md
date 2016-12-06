@@ -30,4 +30,5 @@
 * routes:
   - get users / get user  
     Ervoor gezorgd dat hash en salt niet worden doorgestuurd
-  - test
+  - CRUD watchedMovies
+    Extra beveiliging: de post zal de watchedmovie toevoegen bij de user wiens token is meegegeven

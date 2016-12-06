@@ -15,23 +15,9 @@ angular.module('flapperNews').factory('movies', function($http, auth) {
     function discover() {
         return $http.jsonp('https://api.themoviedb.org/3/discover/movie?api_key=7a80f3ccc9d8fde85933817aca0e6092&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&callback=JSON_CALLBACK')
             .then(function(res) {
-                console.log(res.data.results);
                 return res.data.results;
         });
-        // console.log("in discover");
-        // var settings = {
-        //   "async": true,
-        //   "crossDomain": true,
-        //   "url": "https://api.themoviedb.org/3/discover/movie?page=1&include_video=false&include_adult=false&sort_by=popularity.desc&language=en-US&api_key=7a80f3ccc9d8fde85933817aca0e6092",
-        //   "method": "GET",
-        //   "headers": {},
-        //   "data": "{}"
-        // }
-        //
-        // $.ajax(settings).done(function (response) {
-        //   console.log(response.results);
-        //   return response.results;
-        // });
+
     };
 
     // function getAll() {

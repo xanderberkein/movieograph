@@ -45,6 +45,48 @@ router.get('/:user', function (req, res, next) {
     return res.json(req.user);
 });
 
+// Post
+router.post('/watchList', auth, function (req, res, next) {
+
+    var movieid = req.body.movieid;
+
+    var userid = req.payload._id;
+
+    var query = User.findById(userid);
+
+    query.exec(function(err, user){
+        if(err){
+            return next(err);
+        }
+
+        if(!user){
+            return next(new Error('User not found'))
+        }
+            user.watchList.push(movieid);
+            user.save(function(err){
+                if(err){
+                    return next(err);
+                }
+
+                res.json(watchedMovie);
+            })
+
+        }
+    );
+
+
+    var post = new Post(req.body);
+    post.author = req.payload.username;
+
+    post.save(function (err, post) {
+        if (err) {
+            return next(err);
+        }
+
+        res.json(post);
+    });
+});
+
 
 
 module.exports = router;
