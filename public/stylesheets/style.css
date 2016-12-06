@@ -1,38 +1,65 @@
+/*
+    COLOR GUIDELINES
+    dark primary: #689F38
+    primary: #8BC34A
+    light primary: #DCEDC8
 
-body{
+    accent color: #CDDC39
+    dark accent: #AFB42B
+    light accent: #F0F4C3
+
+    primary text: #212121
+    secondary text: #757575
+    dividers: #BDBDBD
+
+*/
+
+body {
     font-family: 'Roboto', sans-serif;
+    color: #212121;
     background-color: #F7F7F7;
 }
 
-.main{
+.main {
     margin-top: 6em;
 }
 
+
 /* Navigation */
 
-.navbar-default{
+.navbar-default {
     background-color: white;
     margin-bottom: 0;
 }
 
+.navbar-default .navbar-brand{
+    color: #8BC34A;
+}
+
+
 /* Typography */
-.page-header{
+
+.page-header {
     border-bottom: 0;
 }
-h1{
+
+h1 {
     font-weight: 300;
 }
 
-
+hr {
+    padding: 0;
+    margin: 0.5em 0;
+}
 
 
 /* Card */
 
 .row-eq-height {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
 }
 
 .card {
@@ -44,20 +71,20 @@ h1{
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),0 1px 5px 0 rgba(0,0,0,0.12),0 3px 1px -2px rgba(0,0,0,0.2);*/
 }
 
-.card img{
+.card img {
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
 }
 
-.card-content{
+.card-content {
     padding: 0.5em 0.8em 0.5em 0.8em;
 }
 
-.card-img-wrapper{
+.card-img-wrapper {
     padding-right: 0px;
 }
 
-.card-content-wrapper{
+.card-content-wrapper {
     padding: 0.5em 0.8em 0.5em 0.8em;
     margin-right: 15px;
     border: 1px solid #e7e7e7;
@@ -66,14 +93,27 @@ h1{
     border-bottom-right-radius: 4px;
 }
 
-.card-title{
+.card-title {
     font-family: "Oswald";
     font-weight: 300;
     font-size: 1.5em;
     line-height: 1.5em;
-    height: 3em;
+    max-height: 3em;
     white-space: normal;
     overflow: hidden;
     text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
+}
+
+span.glyphicon {
+    color: #CDDC39;
+}
+
+.card-stars{
+    font-weight: 500;
+    color: #757575;
+}
+
+.card-date{
+    color: #757575;
 }
