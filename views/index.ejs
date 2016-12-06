@@ -100,9 +100,9 @@
 		             <h1><span class="glyphicon glyphicon-fire" aria-hidden="true"></span> Most popular</h1>
 		        </div>
 
-				<div  class="row">
+				<div class="row">
 					<!-- <div class="col-md-4" ng-repeat="movie in vm.movies | limitTo : 5"> -->
-					<div class="col-md-4" ng-repeat="movie in vm.movies">
+					<div class="col-md-4" ng-repeat="movie in vm.movies | limitTo: 6">
 						<div class="card">
 							<div class="row row-eq-height">
 								<div class="col-sm-5 card-img-wrapper">
@@ -113,11 +113,20 @@
 									<div class="card-title">
 										{{movie.title}}
 									</div>
-									<div class="card-stars pull-left">
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span> {{movie.vote_average}}
+									<div class="clearfix">
+										<div class="card-stars pull-left">
+											<span class="glyphicon glyphicon-star" aria-hidden="true"></span> {{movie.vote_average}}
+										</div>
+										<div class="card-date pull-right">
+											{{movie.release_date | date:'dd-MM-yyyy'}}
+										</div>
 									</div>
-									<div class="card-date pull-right">
-										{{movie.release_date | date:'dd-MM-yyyy'}}
+									<div class="card-overview">
+										{{movie.overview | limitTo: 100}} &hellip;
+									</div>
+									<hr>
+									<div class="card-info">
+										<a href="">More info</a>
 									</div>
 								</div>
 
