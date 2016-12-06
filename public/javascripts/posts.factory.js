@@ -10,7 +10,9 @@ angular.module('flapperNews').factory('posts', function($http, auth) {
     };
 
     function getAll() {
+        console.log("in getall");
         return $http.get('/posts').success(function(data) {
+            console.log(data);
             angular.copy(data, o.posts);
         });
     };

@@ -4,10 +4,15 @@
 <head>
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Flapper News</title>
+	<title>MovieoGraph</title>
 
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<!-- Google fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500%7COswald:300,400" rel="stylesheet">
+	<!-- Custom CSS -->
+	<link rel="stylesheet" href="stylesheets/style.css">
+
 	<!-- jQuery -->
 	<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 	<!-- Bootstrap JavaScript -->
@@ -19,6 +24,7 @@
 	<script src="javascripts/angular.module.js"></script>
     <script src="javascripts/angularApp.js"></script>
     <script src="javascripts/posts.factory.js"></script>
+    <script src="javascripts/movies.factory.js"></script>
     <script src="javascripts/auth.factory.js"></script>
     <script src="javascripts/main.controller.js"></script>
     <script src="javascripts/posts.controller.js"></script>
@@ -33,7 +39,7 @@
 </head>
 
 <body ng-app="flapperNews">
-	<nav class="navbar navbar-default" ng-controller="NavController as vm">
+	<nav class="navbar navbar-default navbar-fixed-top" ng-controller="NavController as vm">
 	  <div class="container">
 	    <!-- Brand and toggle get grouped for better mobile display -->
 	    <div class="navbar-header">
@@ -79,58 +85,58 @@
 	  </div><!-- /.container-fluid -->
 	</nav>
 
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-				<ui-view>
-					<!-- Templates will be injected here -->
-				</ui-view>
-			</div>
-		</div>
+	<div class="container main">
+			<ui-view>
+				<!-- Templates will be injected here -->
+			</ui-view>
 	</div>
 
 	<!-- home template -->
 	<script type="text/ng-template" id="/home.html">
-        <div class="page-header">
-            <h1>Flapper News</h1>
-        </div>
+		<div class="row">
+			<!-- <div class="col-md-10 col-md-offset-1"> -->
+			<div class="col-md-12">
+		        <div class="page-header">
+		             <h1>Most popular</h1>
+		        </div>
 
-    <!-- Show all posts, sorted by upvotes -->
-        <div ng-repeat="post in vm.posts | orderBy: '-upvotes'">
-            <span class="glyphicon glyphicon-thumbs-up" ng-click="vm.incrementUpvotes(post)"></span>
-            {{post.upvotes}}
-            <span style="font-size:20px; margin-left:10px;">
-                <a ng-show="post.link" href="{{post.link}}">
-                    {{post.title}}
-                </a>
-				<span ng-show="post.author">
-	  				posted by <a>{{post.author}}</a> |
-				</span>
-                <span ng-hide="post.link">
-                    {{post.title}}
-                </span>
-            </span>
-            <!-- Go to comments -->
-            <span>
-                <a href="#/posts/{{post._id}}">Comments</a>
-            </span>
-        </div>
+				<div  class="row">
+					<div class="col-md-4" ng-repeat="movie in vm.movies">
+						<div class="card">
+							<div class="row row-eq-height">
+								<div class="col-sm-5 card-img-wrapper">
+									<img class="img-responsive" src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}">
+								</div>
 
-        <form ng-submit="vm.addPost()" ng-show="vm.isLoggedIn()" style="margin-top:30px;">
-            <h3>Add a new post</h3>
+								<div class="col-sm-7 card-content-wrapper">
+									<div class="card-title">
+										{{movie.title}}
+									</div>
 
-            <div class="form-group">
-                <input type="test" class="form-control" placeholder="Title" ng-model="vm.title"></input>
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Link" ng-model="vm.link"></input>
-            </div>
-            <br>
-            <button type="submit" class="btn btn-primary">Post</button>
-        </form>
+								</div>
 
-		<div ng-hide="vm.isLoggedIn()">
-			<h3>You need to <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> before you can add a post.</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+
+		        <form ng-submit="vm.addPost()" ng-show="vm.isLoggedIn()" style="margin-top:30px;">
+		            <h3>Add a new post</h3>
+
+		            <div class="form-group">
+		                <input type="test" class="form-control" placeholder="Title" ng-model="vm.title"></input>
+		            </div>
+		            <div class="form-group">
+		                <input type="text" class="form-control" placeholder="Link" ng-model="vm.link"></input>
+		            </div>
+		            <br>
+		            <button type="submit" class="btn btn-primary">Post</button>
+		        </form>
+
+				<div ng-hide="vm.isLoggedIn()">
+					<h3>You need to <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> before you can add a post.</h3>
+				</div>
+			</div>
 		</div>
     </script>
 
