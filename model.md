@@ -24,3 +24,10 @@
 * Content: String
 * MovieId: String
 * Date: DateTime
+
+
+### Adaptations
+* routes:
+  - get users / get user  
+    Ervoor gezorgd dat hash en salt niet worden doorgestuurd
+  - test
