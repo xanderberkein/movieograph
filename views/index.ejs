@@ -28,6 +28,7 @@
     <script src="javascripts/auth.factory.js"></script>
     <script src="javascripts/main.controller.js"></script>
     <script src="javascripts/posts.controller.js"></script>
+    <script src="javascripts/movies.controller.js"></script>
     <script src="javascripts/auth.controller.js"></script>
     <script src="javascripts/nav.controller.js"></script>
 
@@ -49,13 +50,13 @@
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	      </button>
-	      <a class="navbar-brand" href="#">MovieoGraph</a>
+	      <a class="navbar-brand" href="/#/home">MovieoGraph</a>
 	    </div>
 
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav">
-	        <li class="active"><a href="#">Home</a></li>
+	        <li><a href="/#/home">Home</a></li>
 	        <li><a href="#">Movies</a></li>
 	      </ul>
 	      <form class="navbar-form navbar-left">
@@ -93,7 +94,7 @@
 
 	<!-- home template -->
 	<script type="text/ng-template" id="/home.html">
-		<div class="row">
+		<div class="row home">
 			<!-- <div class="col-md-10 col-md-offset-1"> -->
 			<div class="col-md-12">
 		        <div class="page-header">
@@ -106,7 +107,7 @@
 						<div class="card">
 							<div class="row row-eq-height">
 								<div class="col-sm-5 card-img-wrapper">
-									<img class="img-responsive" src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}">
+									<img class="img-responsive" src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}">
 								</div>
 
 								<div class="col-sm-7 card-content-wrapper">
@@ -126,7 +127,7 @@
 									</div>
 									<hr>
 									<div class="card-info">
-										<a href="">More info</a>
+										<a href="#/movie/{{movie.id}}">More info</a>
 									</div>
 								</div>
 
@@ -157,6 +158,64 @@
 				</div>
 			</div>
 		</div>
+    </script>
+
+	<!-- movie template -->
+	<script type="text/ng-template" id="/movie.html">
+
+		<div class="row movie-detail">
+			<!-- <div class="col-md-10 col-md-offset-1"> -->
+			<div class="col-md-12">
+
+				<div class="movie-backdrop-wrapper">
+					<div class="movie-backdrop">
+						<!-- <img src="https://image.tmdb.org/t/p/w1280{{vm.movie.backdrop_path}}" style="position: absolute; clip: rect(0px,200px,200px,0px);"> -->
+						<img src="https://image.tmdb.org/t/p/w1280{{vm.movie.backdrop_path}}">
+					</div>
+					<div class="movie-backdrop-content">
+						 <h1><span class="glyphicon glyphicon-film" aria-hidden="true"></span> {{vm.movie.title}} ({{vm.movie.release_date | date:'yyyy'}})</h1>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-8">
+						<p>
+							<span ng-repeat="genre in vm.movie.genres">{{genre.name}}{{$last ? '' : ' - '}}</span>
+						</p>
+						<h3>Overview</h3>
+						<p>
+							{{vm.movie.overview}}
+						</p>
+					</div>
+					<div class="col-md-4">
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+        <!-- <div ng-repeat="comment in vm.post.comments | orderBy:'-upvotes'">
+            <span class="glyphicon glyphicon-thumbs-up" ng-click="vm.incrementUpvotes(comment)"></span>
+            {{comment.upvotes}} - by {{comment.author}}
+            <span style="font-size:20px; margin-left:10px;">
+            {{comment.body}}
+            </span>
+        </div>
+
+         <form ng-submit="vm.addComment()" ng-show="vm.isLoggedIn()" style="margin-top:30px;">
+            <h3>Add a new comment</h3>
+
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Comment" ng-model="vm.body"></input>
+            </div>
+            <button type="submit" class="btn btn-primary">Post</button>
+        </form> -->
+
+		<div ng-hide="vm.isLoggedIn()">
+		  	<h3>You need to <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> before you can comment.</h3>
+		</div>
+
     </script>
 
 

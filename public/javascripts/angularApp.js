@@ -15,6 +15,16 @@ angular.module('flapperNews').config(
                     return movies.discover();
                 }]
             }
+        }).state('movie', {
+            url: '/movie/{id}',
+            templateUrl: '/movie.html',
+            controller: 'MoviesController',
+            controllerAs: 'vm',
+            resolve: {
+                movie: ['$stateParams', 'movies', function($stateParams, movies) {
+                    return movies.get($stateParams.id);
+                }]
+            }
         }).state('posts', {
             url: '/posts/{id}',
             templateUrl: '/posts.html',

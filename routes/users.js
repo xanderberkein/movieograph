@@ -45,7 +45,7 @@ router.get('/:user', function (req, res, next) {
     return res.json(req.user);
 });
 
-// Post
+// Post add to watchList
 router.post('/watchList', auth, function (req, res, next) {
 
     var movieid = req.body.movieid;

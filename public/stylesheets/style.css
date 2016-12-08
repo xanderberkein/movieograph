@@ -20,7 +20,11 @@ body {
     background-color: #F7F7F7;
 }
 
-.main {
+.home {
+    margin-top: 6em;
+}
+
+.movie-detail {
     margin-top: 6em;
 }
 
@@ -134,5 +138,39 @@ span.glyphicon {
 }
 
 .card-info {
+
+}
+
+/* Movie detail */
+
+.movie-backdrop-wrapper{
+    position: relative;
+}
+
+.movie-backdrop{
+    width: 100%;
+    overflow: hidden
+}
+
+.movie-backdrop img{
+    width: 100%;
+    margin: -10% 0 -15% 0
+}
+
+.movie-backdrop-content{
+    bottom: 1em;
+    left: 3em;
+    position: absolute;
+}
+
+.movie-backdrop-content h1{
+    color: white;
+    font-size: 3em;
+    font-weight: 300;
+    padding: 0.1em 0.5em;
+    background-color: rgba(0,0,0,0.5)
+}
+
+.movie-backdrop-content span.glyphicon{
 
 }

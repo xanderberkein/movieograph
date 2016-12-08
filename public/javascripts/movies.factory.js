@@ -20,6 +20,20 @@ angular.module('flapperNews').factory('movies', function($http, auth) {
 
     };
 
+    function get(id) {
+        return $http.jsonp('https://api.themoviedb.org/3/movie/' + id + '?api_key=7a80f3ccc9d8fde85933817aca0e6092&language=en-US&append_to_response=credits&callback=JSON_CALLBACK')
+            .then(function(res) {
+                console.log(res.data);
+                return res.data;
+        });
+    };
+
+    // function get(id) {
+    //     return $http.get('/posts/' + id).then(function(res) {
+    //         return res.data;
+    //     });
+    // };
+
     // function getAll() {
     //     return $http.get('/posts').success(function(data) {
     //         angular.copy(data, o.posts);
@@ -39,12 +53,6 @@ angular.module('flapperNews').factory('movies', function($http, auth) {
             headers: {Authorization: 'Bearer ' + auth.getToken()}
         }).success(function() {
             post.upvotes += 1;
-        });
-    };
-
-    function get(id) {
-        return $http.get('/posts/' + id).then(function(res) {
-            return res.data;
         });
     };
 
