@@ -68,6 +68,10 @@ a:hover{
     color: #689F38;
 }
 
+strong, th{
+    font-weight: 500;
+}
+
 
 /* Card */
 
@@ -173,4 +177,28 @@ span.glyphicon {
 
 .movie-backdrop-content span.glyphicon{
 
+}
+
+.movie-details {
+    margin-top: 1em;
+}
+
+.movie-details .votes {
+    font-size: 2em;
+}
+
+.movie-details .button{
+    font-size: 2em;
+}
+
+.movie-details .btn{
+    margin-top: 1em;
+}
+
+.movie-details .btn:first-of-type{
+    margin-right: 1em;
+}
+
+.table>tbody>tr.first-tr>th, .table>tbody>tr.first-tr>td {
+    border-top: 0;
 }

@@ -215,18 +215,80 @@
 					</div>
 				</div>
 
-				<div class="row">
+				<div class="row movie-details">
 					<div class="col-md-8">
+						<!-- <div class="card-stars">
+							<span class="glyphicon glyphicon-star" aria-hidden="true"></span> {{vm.movie.vote_average}}
+						</div> -->
 						<p>
+							<i> Genre: </i>
 							<span ng-repeat="genre in vm.movie.genres">{{genre.name}}{{$last ? '' : ' - '}}</span>
 						</p>
+						<div class="row">
+							<div class="col-md-4" ng-repeat="crew in vm.movie.credits.crew | limitTo:3">
+								<h4>{{crew.job}}</h4>
+								<p>{{crew.name}}</p>
+							</div>
+						</div>
 						<h3>Overview</h3>
 						<p>
 							{{vm.movie.overview}}
 						</p>
+						<h3>Top billed cast</h3>
+						<div class="row">
+							<div class="col-md-3 text-center" ng-repeat="cast in vm.movie.credits.cast | limitTo:4">
+								<div>
+									<strong>{{cast.name}}</strong>
+								</div>
+								<div>
+									as <br>
+									{{cast.character}}
+								</div>
+							</div>
+
+						</div>
+						<h3>Quick facts</h3>
+						<table class="table table-hover">
+							<tr class="first-tr">
+								<th>Title</th>
+								<td>{{vm.movie.title}}</td>
+							</tr>
+							<tr>
+								<th>Tagline</th>
+								<td>{{vm.movie.tagline}}</td>
+							</tr>
+							<tr>
+								<th>Released on</th>
+								<td>{{vm.movie.release_date | date:'dd-MM-yyyy'}}</td>
+							</tr>
+							<tr>
+								<th>Original language</th>
+								<td>{{vm.movie.original_language}}</td>
+							</tr>
+							<tr>
+								<th>Budget</th>
+								<td>{{vm.movie.budget | currency: dollar: 0}}</td>
+							</tr>
+							<tr>
+								<th>Revenue</th>
+								<td>{{vm.movie.revenue | currency: dollar: 0}}</td>
+							</tr>
+						</table>
 					</div>
 					<div class="col-md-4">
-
+						<div class="row">
+							<div class="col-md-12">
+								<span class="votes"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> {{vm.movie.vote_average}}</span>
+								<a href="">Add this movie to your watchlist</a>
+							</div>
+							<div class="col-md-12 buttons">
+								<a href="http://www.imdb.com/title/{{vm.movie.imdb_id}}" target="_blank" class="btn btn-default">View on imdb</a>
+								<a href="{{vm.movie.homepage}}" target="_blank" class="btn btn-default">Visit official website</a>
+							</div>
+						</div>
+						<h4>
+						<div>
+						</div>
 					</div>
 				</div>
 

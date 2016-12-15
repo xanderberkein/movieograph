@@ -7,6 +7,10 @@ angular.module('flapperNews').controller('MoviesController',
         vm.addComment = addComment;
         vm.incrementUpvotes = incrementUpvotes;
 
+        vm.movie.budget += vm.movie.budget === '' ? 'Unknown' : '';
+        vm.movie.revenue += vm.movie.revenue === '' ? 'Unknown' : '';
+
+
         console.log(movie);
 
         function addComment() {
