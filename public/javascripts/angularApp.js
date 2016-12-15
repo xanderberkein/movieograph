@@ -7,17 +7,12 @@ angular.module('flapperNews').config(
             controllerAs: 'vm',
             resolve: {
                 postPromise: ['posts', function(posts) {
-                    console.log("post promoise 1")
+                    console.log("post promoise 1");
                     return posts.getAll();
                 }],
                 movies: ['movies', function(movies){
-                    console.log("post promoise 2")
+                    console.log("post promise 2");
                     return movies.discover();
-                }],
-                watchList: ['movies', 'auth', function(movies, auth){
-                    console.log("post promise 3");
-                    console.log(auth.currentUserId());
-                    return movies.getWatchList(auth.currentUserId());
                 }]
             }
         }).state('movie', {

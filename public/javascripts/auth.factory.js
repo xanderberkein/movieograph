@@ -49,8 +49,32 @@ angular.module('flapperNews').factory('auth', function($http, $window) {
     };
 
     function register(user) {
-        return $http.post('/register', user).success(function(data) {
-            auth.saveToken(data.token);
+        console.log(user);
+        return $http.jsonp('https://api.themoviedb.org/3/authentication/guest_session/new?api_key=7a80f3ccc9d8fde85933817aca0e6092&callback=JSON_CALLBACK')
+            .then(function(res) {
+                console.log("vlakvoorpost" + res.data.guest_session_id);
+                return $http.jsonp('https://api.themoviedb.org/3/authentication/guest_session/new?api_key=7a80f3ccc9d8fde85933817aca0e6092&callback=JSON_CALLBACK')
+                    .then(function(res2) {
+                        console.log(res.data);
+                        console.log(user);
+                        console.log(res2.data);
+                        user.watchListId = res.data.guest_session_id;
+                        user.watchedId = res2.data.guest_session_id;
+                        console.log(user);
+                        return $http.post('/register', user).then(function(data) {
+                            console.log("na post");
+                            console.log(data.data.token);
+                            auth.saveToken(data.data.token);
+                        },
+                        function(error){
+                            throw error;
+                        });
+                    },
+            function(error){
+                throw error;
+            });
+        }, function(error){
+            throw error;
         });
     };
 

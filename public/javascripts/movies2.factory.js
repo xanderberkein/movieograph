@@ -1,4 +1,4 @@
-angular.module('flapperNews').factory('movies', function($http, auth) {
+angular.module('flapperNews').factory('movies2', function($http, auth) {
 
     var o = {
         movies: [],
@@ -16,23 +16,8 @@ angular.module('flapperNews').factory('movies', function($http, auth) {
     function discover() {
         return $http.jsonp('https://api.themoviedb.org/3/discover/movie?api_key=7a80f3ccc9d8fde85933817aca0e6092&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&callback=JSON_CALLBACK')
             .then(function(res) {
-                return $http.jsonp('https://api.themoviedb.org/3/discover/movie?api_key=7a80f3ccc9d8fde85933817aca0e6092&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&callback=JSON_CALLBACK')
-                    .then(function(res2) {
-                        var c = {
-                            discover: res.data.results,
-                            watchList: res2.data.results
-                        }
-                        console.log(c);
-                        return c;
-                    })
-                // console.log("in discover");
-                // var test = $http.jsonp('https://api.themoviedb.org/3/discover/movie?api_key=7a80f3ccc9d8fde85933817aca0e6092&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&callback=JSON_CALLBACK');
-                // var c = {
-                //     discover: res.data.results,
-                //     watchList: test
-                // }
-                // console.log(c);
-                // return c;
+                console.log("in discover");
+                return res.data.results;
         });
 
     };
