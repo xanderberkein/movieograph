@@ -13,6 +13,11 @@ angular.module('flapperNews').config(
                 movies: ['movies', function(movies){
                     console.log("post promoise 2")
                     return movies.discover();
+                }],
+                watchList: ['movies', 'auth', function(movies, auth){
+                    console.log("post promise 3");
+                    console.log(auth.currentUserId());
+                    return movies.getWatchList(auth.currentUserId());
                 }]
             }
         }).state('movie', {

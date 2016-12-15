@@ -4,6 +4,7 @@ angular.module('flapperNews').factory('auth', function($http, $window) {
         getToken: getToken,
         isLoggedIn: isLoggedIn,
         currentUser: currentUser,
+        currentUserId: currentUserId,
         register: register,
         logIn: logIn,
         logOut: logOut
@@ -35,6 +36,15 @@ angular.module('flapperNews').factory('auth', function($http, $window) {
             var payload = angular.fromJson($window.atob(token.split('.')[1]));
 
             return payload.username;
+        }
+    };
+
+    function currentUserId() {
+        if (auth.isLoggedIn()) {
+            var token = auth.getToken();
+            var payload = angular.fromJson($window.atob(token.split('.')[1]));
+
+            return payload._id;
         }
     };
 

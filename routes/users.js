@@ -45,8 +45,9 @@ router.get('/:user', function (req, res, next) {
     return res.json(req.user);
 });
 
+
 // Post add to watchList
-router.post('/watchList', auth, function (req, res, next) {
+router.post('/watchlist', auth, function (req, res, next) {
 
     var movieid = req.body.movieid;
 
@@ -68,23 +69,12 @@ router.post('/watchList', auth, function (req, res, next) {
                     return next(err);
                 }
 
-                res.json(watchedMovie);
+                res.json(user);
             })
 
         }
     );
 
-
-    var post = new Post(req.body);
-    post.author = req.payload.username;
-
-    post.save(function (err, post) {
-        if (err) {
-            return next(err);
-        }
-
-        res.json(post);
-    });
 });
 
 

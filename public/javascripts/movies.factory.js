@@ -5,6 +5,7 @@ angular.module('flapperNews').factory('movies', function($http, auth) {
         // posts: [],
         //getAll: getAll,
         discover: discover,
+        getWatchList: getWatchList,
         create: create,
         upvote: upvote,
         get: get,
@@ -26,6 +27,16 @@ angular.module('flapperNews').factory('movies', function($http, auth) {
                 console.log(res.data);
                 return res.data;
         });
+    };
+
+    function getWatchList(userid) {
+        return $http.jsonp('https://api.themoviedb.org/3/discover/movie?api_key=7a80f3ccc9d8fde85933817aca0e6092&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&callback=JSON_CALLBACK')
+            .then(function(res) {
+                console.log("wtf");
+                var xd = "getwatchlist from" + userid;
+                console.log(xd);
+                return xd;
+            });
     };
 
     // function get(id) {

@@ -97,12 +97,14 @@
 		<div class="row home">
 			<!-- <div class="col-md-10 col-md-offset-1"> -->
 			<div class="col-md-12">
+
+				<!-- Most popular -->
+
 		        <div class="page-header">
 		             <h1><span class="glyphicon glyphicon-fire" aria-hidden="true"></span> Most popular</h1>
 		        </div>
 
 				<div class="row">
-					<!-- <div class="col-md-4" ng-repeat="movie in vm.movies | limitTo : 5"> -->
 					<div class="col-md-4" ng-repeat="movie in vm.movies | limitTo: 6">
 						<div class="card">
 							<div class="row row-eq-height">
@@ -136,9 +138,45 @@
 					</div>
 				</div>
 
+				<!-- Your watchlist -->
+
 				<div class="page-header">
 		             <h1><span class="glyphicon glyphicon-heart" aria-hidden="true"></span> Your watchlist</h1>
 		        </div>
+
+				<div class="row">
+					<div class="col-md-4" ng-repeat="movie in vm.movies | limitTo: 6">
+						<div class="card">
+							<div class="row row-eq-height">
+								<div class="col-sm-5 card-img-wrapper">
+									<img class="img-responsive" src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}">
+								</div>
+
+								<div class="col-sm-7 card-content-wrapper">
+									<div class="card-title">
+										{{movie.title}}
+									</div>
+									<div class="clearfix">
+										<div class="card-stars pull-left">
+											<span class="glyphicon glyphicon-star" aria-hidden="true"></span> {{movie.vote_average}}
+										</div>
+										<div class="card-date pull-right">
+											{{movie.release_date | date:'dd-MM-yyyy'}}
+										</div>
+									</div>
+									<div class="card-overview">
+										{{movie.overview | limitTo: 100}} &hellip;
+									</div>
+									<hr>
+									<div class="card-info">
+										<a href="#/movie/{{movie.id}}">More info</a>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
 
 		        <form ng-submit="vm.addPost()" ng-show="vm.isLoggedIn()" style="margin-top:30px;">
 		            <h3>Add a new post</h3>
