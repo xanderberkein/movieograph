@@ -46,6 +46,9 @@ router.get('/:user', function (req, res, next) {
 });
 
 
+// http://localhost:3000/users/watchlist
+// movieid 259316
+// Authorization Bearer {token}
 // Post add to watchList
 router.post('/watchlist', auth, function (req, res, next) {
 
