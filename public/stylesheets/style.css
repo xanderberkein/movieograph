@@ -76,6 +76,10 @@ span.glyphicon {
     color: #CDDC39;
 }
 
+span.glyphicon.disabled{
+    color: #BDBDBD;
+}
+
 
 /* Card */
 
@@ -96,6 +100,7 @@ span.glyphicon {
 }
 
 .card img {
+    /*max-height: 211.8px;*/
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
 }
@@ -109,6 +114,8 @@ span.glyphicon {
 }
 
 .card-content-wrapper {
+    /*max-height: 211.8px;
+    min-height: 211.8px;*/
     padding: 0.5em 0.8em 0.5em 0.8em;
     margin-right: 15px;
     border: 1px solid #e7e7e7;
@@ -201,4 +208,39 @@ span.glyphicon {
 
 .table>tbody>tr.first-tr>th, .table>tbody>tr.first-tr>td {
     border-top: 0;
+}
+
+textarea{
+    min-width: 100%;
+    max-width: 100%;
+}
+
+.watchedOn {
+    margin-top: 2em;
+}
+
+.watchedOn .data{
+    font-size: 1.5em;
+    font-weight: 300;
+    margin-bottom: 0.5em;
+}
+
+.watchedOn span{
+    padding-top: 0.2em;
+    padding-left: 0.2em;
+    font-size: 2.5em;
+}
+
+.watchedOn .row{
+    border-bottom: 1px solid #e7e7e7;
+    padding-bottom: 1em;
+    margin-bottom: 2em;
+}
+
+
+@media (min-width: 992px) {
+    .card img {
+        max-height: 211.8px;
+        min-height: 211.8px;
+    }
 }

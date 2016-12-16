@@ -53,8 +53,8 @@ angular.module('movieograph').factory('movies', function($http, auth) {
 
     };
 
-    function discover(){
-        return $http.jsonp('https://api.themoviedb.org/3/discover/movie?api_key=7a80f3ccc9d8fde85933817aca0e6092&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&callback=JSON_CALLBACK')
+    function discover(page){
+        return $http.jsonp('https://api.themoviedb.org/3/discover/movie?api_key=7a80f3ccc9d8fde85933817aca0e6092&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=' + page + '&callback=JSON_CALLBACK')
             .then(function(res) {
                 console.log(res.data);
                 return res.data;

@@ -45,6 +45,22 @@ router.get('/:user', function (req, res, next) {
     return res.json(req.user);
 });
 
+// Get single user + their watchedMovies
+// populate with watchedMovies
+router.get('/:user/watched', function (req, res, next) {
+
+    req.user.populate('watched', function (err, user) {
+        if(err){
+            return next(err);
+        }
+
+        res.json(user);
+
+    });
+
+    // return res.json(req.user);
+});
+
 
 // http://localhost:3000/users/watchlist
 // movieid 259316
@@ -84,9 +100,7 @@ router.delete('/watchlist/:id', auth, function (req, res, next) {
     console.log("test");
 
     var movieid = req.params.id;
-
     var userid = req.payload._id;
-
     var query = User.findById(userid);
 
     query.exec(function(err, user){
@@ -111,22 +125,6 @@ router.delete('/watchlist/:id', auth, function (req, res, next) {
 
             res.json(user);
         })
-
-            // user.watchList.remove(function(err, movieid) {
-            //     if (err) {
-            //       return next(err);
-            //     }
-            //
-            //     res.json(movieid);
-            // });
-            // user.watchList.push(movieid);
-            // user.save(function(err){
-            //     if(err){
-            //         return next(err);
-            //     }
-            //
-            //     res.json(user);
-            // })
 
     });
 

@@ -1,7 +1,8 @@
 <div class="card">
     <div class="row row-eq-height">
         <div class="col-sm-5 card-img-wrapper">
-            <img class="img-responsive" src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}">
+            <img class="img-responsive" src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}" ng-show="movie.poster_path">
+            <img class="img-responsive" src="images/noimg.jpg" ng-hide="movie.poster_path">
         </div>
 
         <div class="col-sm-7 card-content-wrapper">

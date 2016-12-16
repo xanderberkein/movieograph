@@ -25,20 +25,20 @@ angular.module('movieograph').config(
                 user: ['users', 'auth', function(users, auth) {
                     console.log("in user");
                     if(auth.isLoggedIn()){
-                        return users.get(auth.currentUserId())
+                        return users.getWatched(auth.currentUserId())
                     }
                     return "";
                 }]
             }
         }).state('discover', {
-            url: '/discover/{id}',
+            url: '/discover/{page}',
             templateUrl: '/discover.html',
             controller: 'DiscoverController',
             controllerAs: 'vm',
             resolve: {
                 movies: ['$stateParams', 'movies', function($stateParams, movies) {
                     console.log(movies.discover());
-                    return movies.discover();
+                    return movies.discover($stateParams.page);
                     // return movies.discover($stateParams.id);
                 }]
             }

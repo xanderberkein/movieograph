@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>MovieoGraph</title>
 
+	<link rel="icon" type="image/png" href="images/favicon/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="images/favicon/favicon-32x32.png" sizes="32x32">
+
+
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<!-- Google fonts -->
@@ -64,7 +68,7 @@
 	      </ul>
 	      <div class="navbar-form navbar-left">
 	        <div class="form-group">
-	          <input type="text" class="form-control" placeholder="Search" ng-model="vm.query">
+	          <input type="text" class="form-control" placeholder="Search" ng-model="vm.query" ng-keyup="$event.keyCode == 13 ? vm.search() : null">
 	        </div>
 	        <a class="btn btn-default" href="#" ng-click="vm.search()">Submit</a>
 	      </div>
@@ -87,7 +91,7 @@
 
 	<!-- home template -->
 	<script type="text/ng-template" id="/home.html">
-		<div class="row home">
+		<div class="row home row-eq-height">
 			<!-- <div class="col-md-10 col-md-offset-1"> -->
 			<div class="col-md-12">
 
@@ -224,9 +228,47 @@
 								<a href="{{vm.movie.homepage}}" target="_blank" class="btn btn-default">Visit official website</a>
 							</div>
 						</div>
-						<h4>
-						<div>
+						<div class="watchedOn">
+							<div class="row" ng-repeat="watched in vm.watched">
+								<div class="col-xs-2">
+									<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+								</div>
+								<div class="col-xs-10">
+									<div class="">You watched this movie on</div>
+									<div class="data">{{watched.watchedOn | date:'dd MMMM yyyy' }}</div>
+								</div>
+								<div class="col-xs-2">
+									<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+								</div>
+								<div class="col-xs-10">
+									<div>and you rated it </div>
+									<div class="data">{{watched.rating}}</div>
+								</div>
+								<div class="col-xs-2">
+									<span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+								</div>
+								<div class="col-xs-10 latest">
+									<div>You left this note:</div>
+									<div class="data">{{watched.note}}</div>
+								</div>
+							</div>
 						</div>
+						<h4>Add entry</h4>
+						<form ng-submit="vm.addToWatched()">
+							<div class="form-group">
+								<label for="date">Date</label>
+								<input type="date" class="form-control" id="date" ng-model="vm.watchedOn"  placeholder="Date" required>
+							</div>
+							<div class="form-group">
+								<label for="rating">Rating (0 - 10)</label>
+								<input type="number" class="form-control" id="rating" ng-model="vm.rating" placeholder="Rating" step="0.5" max="10" min="0" required>
+							</div>
+							<div class="form-group">
+								<label for="note">Note</label>
+								<textarea class="form-control" id="note" ng-model="vm.note" placeholder="Note"></textarea>
+							</div>
+							<button type="submit" class="btn btn-default">Submit</button>
+						</form>
 					</div>
 				</div>
 
@@ -270,10 +312,10 @@
 						 <span class="glyphicon glyphicon-fire" aria-hidden="true"></span>
 						Most popular
 						<small>
-							<span class="glyphicon glyphicon-chevron-left" aria-hidden="true" ng-show="vm.page > 1"></span>
-							<span class="glyphicon glyphicon-chevron-left disabled" aria-hidden="true" ng-hide="vm.page > 1"></span>
+							<a href="/#/discover/{{vm.page - 1}}" ng-show="vm.page > 1"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+							<span class="glyphicon glyphicon-menu-left disabled" aria-hidden="true" ng-hide="vm.page > 1"></span>
 							Page {{vm.page}}
-							<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+							<a href="/#/discover/{{vm.page + 1}}"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
 						</small>
 					 </h1>
 		        </div>
