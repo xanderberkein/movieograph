@@ -1,11 +1,11 @@
-angular.module('flapperNews').factory('movies', function($http, auth) {
+angular.module('movieograph').factory('movies', function($http, auth) {
 
     var o = {
         movies: [],
         // posts: [],
         //getAll: getAll,
         discover: discover,
-        getWatchList: getWatchList,
+        // getWatchList: getWatchList,
         create: create,
         upvote: upvote,
         get: get,
@@ -54,20 +54,19 @@ angular.module('flapperNews').factory('movies', function($http, auth) {
     function get(id) {
         return $http.jsonp('https://api.themoviedb.org/3/movie/' + id + '?api_key=7a80f3ccc9d8fde85933817aca0e6092&language=en-US&append_to_response=credits&callback=JSON_CALLBACK')
             .then(function(res) {
-                console.log(res.data);
                 return res.data;
         });
     };
 
-    function getWatchList(userid) {
-        console.log("in getWatchList");
-        return $http.get('/users/' + id).then(function(res) {
-                console.log("wtf");
-                var xd = "getwatchlist from" + userid;
-                console.log(xd);
-                return xd;
-            });
-    };
+    // function getWatchList(userid) {
+    //     console.log("in getWatchList");
+    //     return $http.get('/users/' + id).then(function(res) {
+    //             console.log("wtf");
+    //             var xd = "getwatchlist from" + userid;
+    //             console.log(xd);
+    //             return xd;
+    //         });
+    // };
 
     // function addToWatchList(userid) {
     //     return $http.post('/users/' + watchlist, {

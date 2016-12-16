@@ -1,4 +1,4 @@
-angular.module('flapperNews').config(
+angular.module('movieograph').config(
     function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('home', {
             url: '/home',
@@ -28,6 +28,16 @@ angular.module('flapperNews').config(
                         return users.get(auth.currentUserId())
                     }
                     return "";
+                }]
+            }
+        }).state('discover', {
+            url: '/discover/{id}',
+            templateUrl: '/discover.html',
+            controller: 'MainController',
+            controllerAs: 'vm',
+            resolve: {
+                post: ['$stateParams', 'posts', function($stateParams, posts) {
+                    return posts.get($stateParams.id);
                 }]
             }
         }).state('posts', {

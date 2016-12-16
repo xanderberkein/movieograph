@@ -32,6 +32,7 @@
     <script src="javascripts/movies.controller.js"></script>
     <script src="javascripts/auth.controller.js"></script>
     <script src="javascripts/nav.controller.js"></script>
+    <script src="javascripts/directives/movie.directive.js"></script>
 
 	<style>
 		.glyphicon-thumbs-up {
@@ -40,7 +41,7 @@
 	</style>
 </head>
 
-<body ng-app="flapperNews">
+<body ng-app="movieograph">
 	<nav class="navbar navbar-default navbar-fixed-top" ng-controller="NavController as vm">
 	  <div class="container">
 	    <!-- Brand and toggle get grouped for better mobile display -->
@@ -100,6 +101,8 @@
 			<div class="col-md-12">
 
 				<!-- Most popular -->
+
+				<movie-directive></movie-directive>
 
 		        <div class="page-header">
 		             <h1><span class="glyphicon glyphicon-fire" aria-hidden="true"></span> Most popular</h1>
@@ -179,7 +182,7 @@
 					</div>
 				</div>
 
-		        <form ng-submit="vm.addPost()" ng-show="vm.isLoggedIn()" style="margin-top:30px;">
+		        <!-- <form ng-submit="vm.addPost()" ng-show="vm.isLoggedIn()" style="margin-top:30px;">
 		            <h3>Add a new post</h3>
 
 		            <div class="form-group">
@@ -190,7 +193,7 @@
 		            </div>
 		            <br>
 		            <button type="submit" class="btn btn-primary">Post</button>
-		        </form>
+		        </form> -->
 
 				<div ng-hide="vm.isLoggedIn()">
 					<h3>You need to <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> to start keeping track of your movies.</h3>
@@ -268,7 +271,7 @@
 							</tr>
 							<tr>
 								<th>Budget</th>
-								<td>{{vm.movie.budget | currency: dollar: 0}}</td>
+								<td ng-show="vm.movie.budget">{{vm.movie.budget | currency: dollar: 0}}</td>
 							</tr>
 							<tr>
 								<th>Revenue</th>

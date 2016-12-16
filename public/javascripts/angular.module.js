@@ -1,1 +1,1 @@
-angular.module('flapperNews', ['ui.router']); // array contains dependencies
+angular.module('movieograph', ['ui.router']); // array contains dependencies

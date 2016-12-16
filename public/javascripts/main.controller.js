@@ -1,4 +1,4 @@
-angular.module('flapperNews').controller('MainController',
+angular.module('movieograph').controller('MainController',
     function(posts, movies, auth) {
 
         var vm = this;
@@ -7,30 +7,29 @@ angular.module('flapperNews').controller('MainController',
         vm.movies = movies.discover;
         vm.watchList = movies.watchList;
         //vm.movies = movies.movies;
-        vm.addPost = addPost;
-        vm.incrementUpvotes = incrementUpvotes;
+        // vm.addPost = addPost;
+        // vm.incrementUpvotes = incrementUpvotes;
 
         console.log(vm.movies);
         console.log(posts.posts)
 
 
-
-        function addPost() {
-            if (!vm.title || vm.title === '') {
-                return;
-            }
-
-            posts.create({
-                title: vm.title,
-                link: vm.link
-            });
-
-            vm.title = '';
-            vm.link = '';
-        };
-
-        function incrementUpvotes(post) {
-            posts.upvote(post);
-        };
+        // function addPost() {
+        //     if (!vm.title || vm.title === '') {
+        //         return;
+        //     }
+        //
+        //     posts.create({
+        //         title: vm.title,
+        //         link: vm.link
+        //     });
+        //
+        //     vm.title = '';
+        //     vm.link = '';
+        // };
+        //
+        // function incrementUpvotes(post) {
+        //     posts.upvote(post);
+        // };
     }
 );

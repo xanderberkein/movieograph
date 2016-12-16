@@ -1,4 +1,4 @@
-angular.module('flapperNews').controller('NavController',
+angular.module('movieograph').controller('NavController',
     function(auth) {
         var vm = this;
 

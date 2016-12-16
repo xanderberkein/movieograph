@@ -1,4 +1,4 @@
-angular.module('flapperNews').factory('posts', function($http, auth) {
+angular.module('movieograph').factory('posts', function($http, auth) {
     var o = {
         posts: [],
         getAll: getAll,
