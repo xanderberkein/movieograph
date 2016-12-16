@@ -50,20 +50,6 @@ angular.module('movieograph').factory('auth', function($http, $window) {
     };
 
     function register(user) {
-        // // create guest account on tmdb for watchlist
-        // return $http.jsonp('https://api.themoviedb.org/3/authentication/guest_session/new?api_key=7a80f3ccc9d8fde85933817aca0e6092&callback=JSON_CALLBACK')
-        //     .then(function(res) {
-        //         // create guest account on tmdb for watchedlist
-        //         return $http.jsonp('https://api.themoviedb.org/3/authentication/guest_session/new?api_key=7a80f3ccc9d8fde85933817aca0e6092&callback=JSON_CALLBACK')
-        //             .then(function(res2) {
-        //                 user.watchListId = res.data.guest_session_id;
-        //                 user.watchedId = res2.data.guest_session_id;
-        //                 // create account on own api
-        //                 return $http.post('/register', user).then(function(data) {
-        //                     auth.saveToken(data.data.token);
-        //                 });
-        //         });
-        // });
         return $http.post("/register", user).success(function(data) {
           auth.saveToken(data.token);
         });

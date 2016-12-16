@@ -19,9 +19,12 @@ angular.module('movieograph').controller('AuthController',
         };
 
         function logIn() {
-            auth.logIn(vm.user).error(function(error) {
-                vm.error = error;
-            }).then(function() {
+            auth.logIn(vm.user)
+            .catch(function(error) {
+                console.log(error);
+                vm.error = error.data;
+                throw error;
+            }).then(function(){
                 $state.go('home');
             });
         };

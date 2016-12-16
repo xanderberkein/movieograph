@@ -102,6 +102,10 @@ router.post('/', auth, function (req, res, next) {
         return res.status(400).json({message: 'Please fill in the date and rating'});
     }
 
+    if (!body.releaseDate || !body.title) {
+        return res.status(400).json({message: 'Something went wrong. Please try again.'});
+    }
+
     console.log(req.body);
 
     var watchedMovie = new WatchedMovie(req.body);

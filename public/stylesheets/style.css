@@ -18,6 +18,7 @@ body {
     font-family: 'Roboto', sans-serif;
     color: #212121;
     background-color: #F7F7F7;
+    padding-bottom: 3em;
 }
 
 .home {
@@ -40,6 +41,14 @@ body {
     color: #8BC34A;
 }
 
+.navbar-default .navbar-brand:focus{
+    color: #8BC34A;
+}
+
+.navbar-default .navbar-brand:hover{
+    color: #8BC34A;
+}
+
 
 /* Typography */
 
@@ -48,6 +57,11 @@ body {
 }
 
 h1 {
+    font-weight: 300;
+}
+
+h1 .h1-small{
+    padding-left: 0.5em;
     font-weight: 300;
 }
 
@@ -78,6 +92,14 @@ span.glyphicon {
 
 span.glyphicon.disabled{
     color: #BDBDBD;
+}
+
+th {
+    font-weight: 500;
+}
+
+.need-login{
+    font-size: 1.2em;
 }
 
 
@@ -210,6 +232,18 @@ span.glyphicon.disabled{
     border-top: 0;
 }
 
+.votes{
+    padding-right: 0.2em;
+}
+
+.detail-watchlist-div{
+    margin-top:1em;
+}
+
+.detail-watchlist{
+    font-size: 1.5em;
+}
+
 textarea{
     min-width: 100%;
     max-width: 100%;
@@ -235,6 +269,65 @@ textarea{
     border-bottom: 1px solid #e7e7e7;
     padding-bottom: 1em;
     margin-bottom: 2em;
+}
+
+.watchedOn .data small{
+    font-size: 0.7em;
+}
+
+
+
+/* watched movies */
+
+.watched-info{
+    font-size: 1.3em;
+    font-weight: 300;
+    margin-bottom: 2em;
+}
+
+.table>tbody>tr>td{
+    padding-top: 1em;
+    height: 2.5;
+}
+
+.table>tbody>tr>td.watched-important{
+    padding-top: 0.5em;
+    font-size: 1.4em;
+}
+
+.table>tbody>tr>td.watched-title{
+    font-family: 'Oswald';
+    font-size: 1.5em;
+    font-weight: 300;
+}
+
+.table>tbody>tr>td.watched-important .watched-rating{
+    font-weight: 500;
+    color: #8BC34A;
+}
+
+.watched-movies small{
+    font-size: 0.8em;
+}
+
+/* auth */
+
+.auth-h1{
+    margin-top: 3em;
+}
+
+/*dark primary: #689F38
+primary: #8BC34A
+light primary: #DCEDC8*/
+
+.btn-auth{
+    background-color: #8BC34A;
+    border-color: #689F38
+}
+
+.btn-auth:hover, .btn-auth:focus, .btn-auth:active, .btn-auth:active:focus {
+    background-color: #689F38;
+    border-color: #689F38
 }
 
 

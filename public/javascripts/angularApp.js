@@ -54,6 +54,24 @@ angular.module('movieograph').config(
                     // return movies.discover($stateParams.id);
                 }]
             }
+        }).state('watched', {
+            url: '/watched',
+            templateUrl: '/watched.html',
+            controller: 'WatchedController',
+            controllerAs: 'vm',
+            onEnter: ['$state', 'auth', function ($state, auth) {
+                if (!auth.isLoggedIn()) {
+                    $state.go('home');
+                }
+            }],
+            resolve: {
+                user: ['users', 'auth', function(users, auth) {
+                    if(auth.isLoggedIn()){
+                        return users.getWatched(auth.currentUserId())
+                    }
+                    return "";
+                }]
+            }
         }).state('posts', {
             url: '/posts/{id}',
             templateUrl: '/posts.html',

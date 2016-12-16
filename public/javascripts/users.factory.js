@@ -37,6 +37,8 @@ angular.module('movieograph').factory('users', function($http, auth) {
     function addToWatched(watched){
         return $http.post('/watched/', watched, {
             headers: {Authorization: 'Bearer ' + auth.getToken()}
+        }).success(function(data){
+            return data;
         });
     }
 

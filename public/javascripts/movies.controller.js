@@ -12,22 +12,21 @@ angular.module('movieograph').controller('MoviesController',
 
         if (vm.isLoggedIn()){
             vm.alreadyStarred = (user.watchList.indexOf(movie.id.toString()) != -1) ? true : false;
-        }
-
-        vm.watched = [];
-        var found = false;
-        var watched = vm.user.watched;
-        for(var i = 0; i < watched.length; i++) {
-            if (watched[i].movieId == vm.movie.id) {
-                vm.watched.push(watched[i]);
+            vm.watched = [];
+            var found = false;
+            var watched = vm.user.watched;
+            for(var i = 0; i < watched.length; i++) {
+                if (watched[i].movieId == vm.movie.id) {
+                    vm.watched.push(watched[i]);
+                }
             }
         }
 
-        console.log(vm.watched);
+
+        console.log(vm.watched)
 
         vm.movie.budget += vm.movie.budget === '' ? 'Unknown' : '';
         vm.movie.revenue += vm.movie.revenue === '' ? 'Unknown' : '';
-
 
         console.log(movie);
 
@@ -48,11 +47,14 @@ angular.module('movieograph').controller('MoviesController',
         function addToWatched(){
             users.addToWatched({
                 movieId: vm.movie.id,
+                title: vm.movie.title,
+                releaseDate: vm.movie.release_date,
                 watchedOn: vm.watchedOn,
                 rating: vm.rating,
                 note: vm.note
-            }).success(function() {
+            }).success(function(data) {
                 vm.watchedOn = vm.rating = vm.note = "";
+                vm.watched.push(data);
             });
         }
 
