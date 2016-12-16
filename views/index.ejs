@@ -212,10 +212,10 @@
 								<a href="{{vm.movie.homepage}}" target="_blank" class="btn btn-default">Visit official website</a>
 							</div>
 							<div class="col-md-12 detail-watchlist-div" ng-show="vm.isLoggedIn()">
-								<a class="detail-watchlist" ng-hide="vm.alreadyStarred" href="" ng-click="vm.addToWatchList()">
+								<a class="btn btn-default detail-watchlist" ng-hide="vm.alreadyStarred" href="" ng-click="vm.addToWatchList()">
 									<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Add this movie to your watchlist
 								</a>
-								<a class="detail-watchlist" ng-show="vm.alreadyStarred" href="" ng-click="vm.removeFromWatchList()">
+								<a class="btn btn-default detail-watchlist" ng-show="vm.alreadyStarred" href="" ng-click="vm.removeFromWatchList()">
 									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete this movie from your watchlist
 								</a>
 							</div>
@@ -249,7 +249,7 @@
 									</div>
 								</div>
 							</div>
-							<h4>Add entry</h4>
+							<h4 id="add-watched-list"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span> Add this movie to your watched movies list</h4>
 							<form ng-submit="vm.addToWatched()">
 								<div class="form-group">
 									<label for="date">Date</label>
@@ -367,7 +367,7 @@
 						<td class="watched-important"><span class="watched-rating">{{watched.rating}}</span> <small>/10</small></td>
 						<td>{{watched.note | limitTo: 45}}</td>
 						<td><a href="/#/movie/{{watched.movieId}}">More info</a></td>
-						<td><a href="/#/movie/{{watched.movieId}}">Delete</a></td>
+						<td><a href="#" ng-click="vm.removeFromWatched(watched._id)">Delete</a></td>
 					</tr>
 				</tbody>
 				</table>

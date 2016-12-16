@@ -5,7 +5,8 @@ angular.module('movieograph').factory('users', function($http, auth) {
         getWatched: getWatched,
         addToWatchList: addToWatchList,
         removeFromWatchList: removeFromWatchList,
-        addToWatched: addToWatched
+        addToWatched: addToWatched,
+        removeFromWatched: removeFromWatched
     };
 
 
@@ -36,6 +37,15 @@ angular.module('movieograph').factory('users', function($http, auth) {
 
     function addToWatched(watched){
         return $http.post('/watched/', watched, {
+            headers: {Authorization: 'Bearer ' + auth.getToken()}
+        }).success(function(data){
+            return data;
+        });
+    }
+
+    function removeFromWatched(id) {
+        console.log("go");
+        return $http.delete('/watched/' + id, {
             headers: {Authorization: 'Bearer ' + auth.getToken()}
         }).success(function(data){
             return data;

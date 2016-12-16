@@ -16,24 +16,5 @@ angular.module('movieograph').controller('DiscoverController',
         }
 
 
-
-
-        // function addPost() {
-        //     if (!vm.title || vm.title === '') {
-        //         return;
-        //     }
-        //
-        //     posts.create({
-        //         title: vm.title,
-        //         link: vm.link
-        //     });
-        //
-        //     vm.title = '';
-        //     vm.link = '';
-        // };
-        //
-        // function incrementUpvotes(post) {
-        //     posts.upvote(post);
-        // };
     }
 );
