@@ -8,10 +8,7 @@ angular.module('movieograph').controller('WatchedController',
         vm.removeFromWatched = removeFromWatched;
         vm.order = "title";
 
-        console.log(vm.watched);
-
         function search(){
-            console.log("xd");
             $state.go('search', {id: vm.query});
         }
 
@@ -23,13 +20,10 @@ angular.module('movieograph').controller('WatchedController',
                         break;
                     }
                 }
-                console.log(watched);
                 var index = vm.watched.indexOf(watched);
-                console.log(index);
                 if (index > -1) {
                     vm.watched.splice(index, 1);
                 }
-                // vm.watched.pull(watched);
             });
         }
 

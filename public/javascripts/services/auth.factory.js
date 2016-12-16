@@ -40,7 +40,6 @@ angular.module('movieograph').factory('auth', function($http, $window) {
     };
 
     function currentUserId() {
-        console.log("currentuserid auth.factory")
         if (auth.isLoggedIn()) {
             var token = auth.getToken();
             var payload = angular.fromJson($window.atob(token.split('.')[1]));

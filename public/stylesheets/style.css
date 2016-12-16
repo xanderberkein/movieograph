@@ -82,11 +82,19 @@ a:hover{
     color: #689F38;
 }
 
-.btn-default{
+a.btn-default:visited {
+    color:black;
+}
+
+.btn-green{
     color: #AFB42B;
 }
 
-.btn-default:hover, .btn-default:hover span{
+a.btn-green:visited {
+    color: #AFB42B;
+}
+
+.btn-green:hover, .btn-green:hover span{
     color: #689F38;
 }
 
@@ -249,7 +257,7 @@ th {
 }
 
 .detail-watchlist{
-    font-size: 1.5em;
+    font-size: 1.2em;
 }
 
 #add-watched-list{

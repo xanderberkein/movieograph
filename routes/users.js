@@ -97,7 +97,6 @@ router.post('/watchlist', auth, function (req, res, next) {
 });
 
 router.delete('/watchlist/:id', auth, function (req, res, next) {
-    console.log("test");
 
     var movieid = req.params.id;
     var userid = req.payload._id;
@@ -113,7 +112,6 @@ router.delete('/watchlist/:id', auth, function (req, res, next) {
         }
 
         var index = user.watchList.indexOf(movieid);
-        console.log('index = ' + index + ', movieide = ' + movieid);
         if (index > -1) {
             user.watchList.splice(index, 1);
         }

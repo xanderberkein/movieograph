@@ -29,7 +29,6 @@ angular.module('movieograph').factory('users', function($http, auth) {
     }
 
     function removeFromWatchList(id) {
-        console.log("go");
         return $http.delete('/users/watchlist/' + id, {
             headers: {Authorization: 'Bearer ' + auth.getToken()}
         });
@@ -44,7 +43,6 @@ angular.module('movieograph').factory('users', function($http, auth) {
     }
 
     function removeFromWatched(id) {
-        console.log("go");
         return $http.delete('/watched/' + id, {
             headers: {Authorization: 'Bearer ' + auth.getToken()}
         }).success(function(data){

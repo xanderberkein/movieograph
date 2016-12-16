@@ -9,7 +9,6 @@ angular.module('movieograph').controller('AuthController',
         function register() {
             auth.register(vm.user)
             .catch(function(error) {
-                console.log(error);
                 vm.error = error.data;
                 throw error;
             })
@@ -21,7 +20,6 @@ angular.module('movieograph').controller('AuthController',
         function logIn() {
             auth.logIn(vm.user)
             .catch(function(error) {
-                console.log(error);
                 vm.error = error.data;
                 throw error;
             }).then(function(){

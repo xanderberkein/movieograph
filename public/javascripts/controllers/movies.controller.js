@@ -1,5 +1,5 @@
 angular.module('movieograph').controller('MoviesController',
-    function(posts, users, movie, user, auth) {
+    function(users, movie, user, auth) {
         var vm = this;
 
         vm.isLoggedIn = auth.isLoggedIn;
@@ -21,14 +21,6 @@ angular.module('movieograph').controller('MoviesController',
                 }
             }
         }
-
-
-        console.log(vm.watched)
-
-        vm.movie.budget += vm.movie.budget === '' ? 'Unknown' : '';
-        vm.movie.revenue += vm.movie.revenue === '' ? 'Unknown' : '';
-
-        console.log(movie);
 
         function addToWatchList() {
             users.addToWatchList({

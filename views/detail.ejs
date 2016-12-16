@@ -1,0 +1,146 @@
+<script type="text/ng-template" id="/movie.html">
+
+    <div class="row movie-detail">
+        <div class="col-md-12">
+
+            <div class="movie-backdrop-wrapper">
+                <div class="movie-backdrop">
+                    <img src="https://image.tmdb.org/t/p/w1280{{vm.movie.backdrop_path}}">
+                </div>
+                <div class="movie-backdrop-content">
+                     <h1><span class="glyphicon glyphicon-film" aria-hidden="true"></span> {{vm.movie.title}} ({{vm.movie.release_date | date:'yyyy'}})</h1>
+                </div>
+            </div>
+
+            <div class="row movie-details">
+                <div class="col-md-8">
+                    <p>
+                        <i> Genre: </i>
+                        <span ng-repeat="genre in vm.movie.genres">{{genre.name}}{{$last ? '' : ' - '}}</span>
+                    </p>
+                    <div class="row">
+                        <div class="col-md-4" ng-repeat="crew in vm.movie.credits.crew | limitTo:3">
+                            <h4>{{crew.job}}</h4>
+                            <p>{{crew.name}}</p>
+                        </div>
+                    </div>
+                    <h3>Overview</h3>
+                    <p>
+                        {{vm.movie.overview}}
+                    </p>
+                    <h3>Top billed cast</h3>
+                    <div class="row">
+                        <div class="col-md-3 text-center" ng-repeat="cast in vm.movie.credits.cast | limitTo:4">
+                            <div>
+                                <strong>{{cast.name}}</strong>
+                            </div>
+                            <div>
+                                as <br>
+                                {{cast.character}}
+                            </div>
+                        </div>
+
+                    </div>
+                    <h3>Quick facts</h3>
+                    <table class="table table-hover">
+                        <tr class="first-tr">
+                            <th>Title</th>
+                            <td>{{vm.movie.title}}</td>
+                        </tr>
+                        <tr>
+                            <th>Tagline</th>
+                            <td>{{vm.movie.tagline}}</td>
+                        </tr>
+                        <tr>
+                            <th>Released on</th>
+                            <td>{{vm.movie.release_date | date:'dd-MM-yyyy'}}</td>
+                        </tr>
+                        <tr>
+                            <th>Original language</th>
+                            <td>{{vm.movie.original_language}}</td>
+                        </tr>
+                        <tr>
+                            <th>Budget</th>
+                            <td ng-show="vm.movie.budget">{{vm.movie.budget | currency: dollar: 0}}</td>
+                            <td ng-hide="vm.movie.budget">Unknown</td>
+                        </tr>
+                        <tr>
+                            <th>Revenue</th>
+                            <td ng-show="vm.movie.revenue">{{vm.movie.revenue | currency: dollar: 0}}</td>
+                            <td ng-hide="vm.movie.revenue">Unknown</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span class="votes"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> {{vm.movie.vote_average}}</span>
+                            average themoviedb score
+                        </div>
+                        <div class="col-md-12 buttons">
+                            <a href="http://www.imdb.com/title/{{vm.movie.imdb_id}}" target="_blank" class="btn btn-default">View on imdb</a>
+                            <a href="{{vm.movie.homepage}}" target="_blank" class="btn btn-default">Visit official website</a>
+                        </div>
+                        <div class="col-md-12 detail-watchlist-div" ng-show="vm.isLoggedIn()">
+                            <a class="btn btn-default btn-green detail-watchlist" ng-hide="vm.alreadyStarred" href="" ng-click="vm.addToWatchList()">
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Add this movie to your watchlist
+                            </a>
+                            <a class="btn btn-default btn-green detail-watchlist" ng-show="vm.alreadyStarred" href="" ng-click="vm.removeFromWatchList()">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete this movie from your watchlist
+                            </a>
+                        </div>
+                        <div class="col-md-12 detail-watchlist-div" ng-hide="vm.isLoggedIn()">
+                            <div class="need-login">You need to <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> to start tracking your movies.</div>
+                        </div>
+                    </div>
+                    <div ng-show="vm.isLoggedIn()">
+                        <div class="watchedOn" >
+                            <div class="row" ng-repeat="watched in vm.watched | orderBy: '-watchedOn'">
+                                <div class="col-xs-2">
+                                    <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                                </div>
+                                <div class="col-xs-10">
+                                    <div class="">You watched this movie on</div>
+                                    <div class="data">{{watched.watchedOn | date:'dd MMMM yyyy' }}</div>
+                                </div>
+                                <div class="col-xs-2">
+                                    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                                </div>
+                                <div class="col-xs-10">
+                                    <div>and you rated it </div>
+                                    <div class="data">{{watched.rating}} <small>/10</small></div>
+                                </div>
+                                <div class="col-xs-2">
+                                    <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+                                </div>
+                                <div class="col-xs-10 latest">
+                                    <div>You left this note:</div>
+                                    <div class="data">{{watched.note}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 id="add-watched-list"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span> Add this movie to your watched movies list</h4>
+                        <form ng-submit="vm.addToWatched()">
+                            <div class="form-group">
+                                <label for="date">Date</label>
+                                <input type="date" class="form-control" id="date" ng-model="vm.watchedOn"  placeholder="Date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="rating">Rating (0 - 10)</label>
+                                <input type="number" class="form-control" id="rating" ng-model="vm.rating" placeholder="Rating" step="0.5" max="10" min="0" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="note">Note</label>
+                                <textarea class="form-control" id="note" ng-model="vm.note" placeholder="Note"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-default">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</script>

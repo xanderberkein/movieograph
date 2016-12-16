@@ -27,17 +27,17 @@
 
 	<script src="javascripts/angular.module.js"></script>
     <script src="javascripts/angularApp.js"></script>
-    <script src="javascripts/users.factory.js"></script>
-    <script src="javascripts/posts.factory.js"></script>
-    <script src="javascripts/movies.factory.js"></script>
-    <script src="javascripts/auth.factory.js"></script>
-    <script src="javascripts/main.controller.js"></script>
-    <script src="javascripts/posts.controller.js"></script>
-    <script src="javascripts/movies.controller.js"></script>
-    <script src="javascripts/discover.controller.js"></script>
-    <script src="javascripts/watched.controller.js"></script>
-    <script src="javascripts/auth.controller.js"></script>
-    <script src="javascripts/nav.controller.js"></script>
+    <script src="javascripts/services/users.factory.js"></script>
+    <script src="javascripts/services/posts.factory.js"></script>
+    <script src="javascripts/services/movies.factory.js"></script>
+    <script src="javascripts/services/auth.factory.js"></script>
+    <script src="javascripts/controllers/main.controller.js"></script>
+    <script src="javascripts/controllers/posts.controller.js"></script>
+    <script src="javascripts/controllers/movies.controller.js"></script>
+    <script src="javascripts/controllers/discover.controller.js"></script>
+    <script src="javascripts/controllers/watched.controller.js"></script>
+    <script src="javascripts/controllers/auth.controller.js"></script>
+    <script src="javascripts/controllers/nav.controller.js"></script>
     <script src="javascripts/directives/movie.directive.js"></script>
 
 	<style>
@@ -72,7 +72,7 @@
 	        <div class="form-group">
 	          <input type="text" class="form-control" placeholder="Search" ng-model="vm.query" ng-keyup="$event.keyCode == 13 ? vm.search() : null">
 	        </div>
-	        <a class="btn btn-default" href="#" ng-click="vm.search()">Submit</a>
+	        <a class="btn btn-default btn-green" href="#" ng-click="vm.search()">Submit</a>
 	      </div>
 	      <ul class="nav navbar-nav navbar-right">
 	        <!-- <li><a href="#">Link</a></li> -->
@@ -91,381 +91,27 @@
 			</ui-view>
 	</div>
 
-	<!-- home template -->
-	<script type="text/ng-template" id="/home.html">
-		<div class="row home row-eq-height">
-			<!-- <div class="col-md-10 col-md-offset-1"> -->
-			<div class="col-md-12">
+	<!-- home -->
+	<% include home.ejs %>
 
-				<!-- Most popular -->
+	<!-- movie detail -->
+	<% include detail.ejs %>
 
-		        <div class="page-header">
-		             <h1><span class="glyphicon glyphicon-fire" aria-hidden="true"></span> Most popular</h1>
-		        </div>
+	<!-- discover -->
+	<% include discover.ejs %>
 
-				<div class="row">
-					<div class="col-md-4" ng-repeat="movie in vm.movies | limitTo: 6">
-						<movie-card></movie-card>
-					</div>
-				</div>
+	<!-- search -->
+	<% include search.ejs %>
 
-				<!-- Your watchlist -->
+	<!-- watched movies -->
+	<% include watched.ejs %>
 
-				<div class="page-header">
-		             <h1><span class="glyphicon glyphicon-heart" aria-hidden="true"></span> Your watchlist <small class="h1-small">Movies you want to watch</small></h1>
-		        </div>
+	<!-- register -->
+	<% include auth/register.ejs %>
 
-				<div class="row">
-					<div class="col-md-4" ng-repeat="movie in vm.watchList">
-						<movie-card></movie-card>
-					</div>
-				</div>
+	<!-- login -->
+	<% include auth/login.ejs %>
 
-				<div ng-hide="vm.isLoggedIn()">
-					<div class="need-login">You need to <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> to start keeping track of your movies.</div>
-				</div>
-			</div>
-		</div>
-    </script>
-
-	<!-- movie template -->
-	<script type="text/ng-template" id="/movie.html">
-
-		<div class="row movie-detail">
-			<div class="col-md-12">
-
-				<div class="movie-backdrop-wrapper">
-					<div class="movie-backdrop">
-						<img src="https://image.tmdb.org/t/p/w1280{{vm.movie.backdrop_path}}">
-					</div>
-					<div class="movie-backdrop-content">
-						 <h1><span class="glyphicon glyphicon-film" aria-hidden="true"></span> {{vm.movie.title}} ({{vm.movie.release_date | date:'yyyy'}})</h1>
-					</div>
-				</div>
-
-				<div class="row movie-details">
-					<div class="col-md-8">
-						<p>
-							<i> Genre: </i>
-							<span ng-repeat="genre in vm.movie.genres">{{genre.name}}{{$last ? '' : ' - '}}</span>
-						</p>
-						<div class="row">
-							<div class="col-md-4" ng-repeat="crew in vm.movie.credits.crew | limitTo:3">
-								<h4>{{crew.job}}</h4>
-								<p>{{crew.name}}</p>
-							</div>
-						</div>
-						<h3>Overview</h3>
-						<p>
-							{{vm.movie.overview}}
-						</p>
-						<h3>Top billed cast</h3>
-						<div class="row">
-							<div class="col-md-3 text-center" ng-repeat="cast in vm.movie.credits.cast | limitTo:4">
-								<div>
-									<strong>{{cast.name}}</strong>
-								</div>
-								<div>
-									as <br>
-									{{cast.character}}
-								</div>
-							</div>
-
-						</div>
-						<h3>Quick facts</h3>
-						<table class="table table-hover">
-							<tr class="first-tr">
-								<th>Title</th>
-								<td>{{vm.movie.title}}</td>
-							</tr>
-							<tr>
-								<th>Tagline</th>
-								<td>{{vm.movie.tagline}}</td>
-							</tr>
-							<tr>
-								<th>Released on</th>
-								<td>{{vm.movie.release_date | date:'dd-MM-yyyy'}}</td>
-							</tr>
-							<tr>
-								<th>Original language</th>
-								<td>{{vm.movie.original_language}}</td>
-							</tr>
-							<tr>
-								<th>Budget</th>
-								<td ng-show="vm.movie.budget">{{vm.movie.budget | currency: dollar: 0}}</td>
-							</tr>
-							<tr>
-								<th>Revenue</th>
-								<td>{{vm.movie.revenue | currency: dollar: 0}}</td>
-							</tr>
-						</table>
-					</div>
-
-					<div class="col-md-4">
-						<div class="row">
-							<div class="col-md-12">
-								<span class="votes"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> {{vm.movie.vote_average}}</span>
-								average themoviedb score
-							</div>
-							<div class="col-md-12 buttons">
-								<a href="http://www.imdb.com/title/{{vm.movie.imdb_id}}" target="_blank" class="btn btn-default">View on imdb</a>
-								<a href="{{vm.movie.homepage}}" target="_blank" class="btn btn-default">Visit official website</a>
-							</div>
-							<div class="col-md-12 detail-watchlist-div" ng-show="vm.isLoggedIn()">
-								<a class="btn btn-default detail-watchlist" ng-hide="vm.alreadyStarred" href="" ng-click="vm.addToWatchList()">
-									<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Add this movie to your watchlist
-								</a>
-								<a class="btn btn-default detail-watchlist" ng-show="vm.alreadyStarred" href="" ng-click="vm.removeFromWatchList()">
-									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete this movie from your watchlist
-								</a>
-							</div>
-							<div class="col-md-12 detail-watchlist-div" ng-hide="vm.isLoggedIn()">
-							  	<div class="need-login">You need to <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> to start tracking your movies.</div>
-							</div>
-						</div>
-						<div ng-show="vm.isLoggedIn()">
-							<div class="watchedOn" >
-								<div class="row" ng-repeat="watched in vm.watched | orderBy: '-watchedOn'">
-									<div class="col-xs-2">
-										<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-									</div>
-									<div class="col-xs-10">
-										<div class="">You watched this movie on</div>
-										<div class="data">{{watched.watchedOn | date:'dd MMMM yyyy' }}</div>
-									</div>
-									<div class="col-xs-2">
-										<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-									</div>
-									<div class="col-xs-10">
-										<div>and you rated it </div>
-										<div class="data">{{watched.rating}} <small>/10</small></div>
-									</div>
-									<div class="col-xs-2">
-										<span class="glyphicon glyphicon-book" aria-hidden="true"></span>
-									</div>
-									<div class="col-xs-10 latest">
-										<div>You left this note:</div>
-										<div class="data">{{watched.note}}</div>
-									</div>
-								</div>
-							</div>
-							<h4 id="add-watched-list"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span> Add this movie to your watched movies list</h4>
-							<form ng-submit="vm.addToWatched()">
-								<div class="form-group">
-									<label for="date">Date</label>
-									<input type="date" class="form-control" id="date" ng-model="vm.watchedOn"  placeholder="Date" required>
-								</div>
-								<div class="form-group">
-									<label for="rating">Rating (0 - 10)</label>
-									<input type="number" class="form-control" id="rating" ng-model="vm.rating" placeholder="Rating" step="0.5" max="10" min="0" required>
-								</div>
-								<div class="form-group">
-									<label for="note">Note</label>
-									<textarea class="form-control" id="note" ng-model="vm.note" placeholder="Note"></textarea>
-								</div>
-								<button type="submit" class="btn btn-default">Submit</button>
-							</form>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-
-    </script>
-
-
-	<!-- discover template -->
-	<script type="text/ng-template" id="/discover.html">
-		<div class="row home">
-			<div class="col-md-12">
-
-				<!-- Most popular -->
-
-		        <div class="page-header">
-		             <h1>
-						 <span class="glyphicon glyphicon-fire" aria-hidden="true"></span>
-						Discover
-						<small>
-							<a href="/#/discover/{{vm.page - 1}}" ng-show="vm.page > 1"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
-							<span class="glyphicon glyphicon-menu-left disabled" aria-hidden="true" ng-hide="vm.page > 1"></span>
-							Page {{vm.page}}
-							<a href="/#/discover/{{vm.page + 1}}"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
-						</small>
-					 </h1>
-		        </div>
-
-				<div class="row">
-					<div class="col-md-4" ng-repeat="movie in vm.movies">
-						<movie-card></movie-card>
-					</div>
-				</div>
-			</div>
-		</div>
-
-    </script>
-
-
-	<!-- search template -->
-	<script type="text/ng-template" id="/search.html">
-		<div class="row home">
-			<div class="col-md-12">
-
-				<!-- Most popular -->
-
-				<div class="page-header">
-					 <h1>
-						 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-						Search {{vm.query}}
-
-					 </h1>
-				</div>
-
-				<div class="row">
-					<div class="col-md-4" ng-repeat="movie in vm.movies">
-						<movie-card></movie-card>
-					</div>
-				</div>
-			</div>
-		</div>
-
-	</script>
-
-	<!-- watched template -->
-	<script type="text/ng-template" id="/watched.html">
-		<div class="row home">
-			<div class="col-md-12">
-
-				<!-- Most popular -->
-
-				<div class="page-header">
-					 <h1>
-						 <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-						Watched movies
-					 </h1>
-				</div>
-
-				<div class="watched-info">All the movies you ever watched! Click on a column title to order by that column.</div>
-
-				<table class="table table-responsive watched-movies">
-				<thead>
-					<tr>
-						<th>Title</th>
-						<th>Year</th>
-						<th>Watched on</th>
-						<th>Rating</th>
-						<th>Note</th>
-						<th></th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="watched in vm.watched | orderBy: 'vm.order'">
-						<td class="watched-important watched-title">{{watched.title | limitTo: 40}}</td>
-						<td>{{watched.releaseDate | date:'yyyy'}}</td>
-						<td>{{watched.watchedOn | date:'dd MMMM yyyy'}}</td>
-						<td class="watched-important"><span class="watched-rating">{{watched.rating}}</span> <small>/10</small></td>
-						<td>{{watched.note | limitTo: 45}}</td>
-						<td><a href="/#/movie/{{watched.movieId}}">More info</a></td>
-						<td><a href="#" ng-click="vm.removeFromWatched(watched._id)">Delete</a></td>
-					</tr>
-				</tbody>
-				</table>
-
-				<div class="row">
-					<div class="col-md-4" ng-repeat="movie in vm.movies">
-						<movie-card></movie-card>
-					</div>
-				</div>
-			</div>
-		</div>
-
-	</script>
-
-	<!-- post template -->
-	<script type="text/ng-template" id="/posts.html">
-        <div class="page-header">
-            <h3>
-            <a ng-show="post.link" href="{{post.link}}">
-                {{post.title}}
-            </a>
-            <span ng-hide="post.link">
-                {{post.title}}
-            </span>
-            </h3>
-        </div>
-
-        <div ng-repeat="comment in vm.post.comments | orderBy:'-upvotes'">
-            <span class="glyphicon glyphicon-thumbs-up" ng-click="vm.incrementUpvotes(comment)"></span>
-            {{comment.upvotes}} - by {{comment.author}}
-            <span style="font-size:20px; margin-left:10px;">
-            {{comment.body}}
-            </span>
-        </div>
-        <form ng-submit="vm.addComment()" ng-show="vm.isLoggedIn()" style="margin-top:30px;">
-            <h3>Add a new comment</h3>
-
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Comment" ng-model="vm.body"></input>
-            </div>
-            <button type="submit" class="btn btn-primary">Post</button>
-        </form>
-
-		<div ng-hide="vm.isLoggedIn()">
-		  	<h3>You need to <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> before you can comment.</h3>
-		</div>
-
-    </script>
-
-	<script type="text/ng-template" id="/register.html">
-		<div class="row">
-			<div class="col-sm-offset-3 col-sm-6">
-				<div class="page-header">
-					<h1 class="auth-h1"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Register</h1>
-				</div>
-
-				<div ng-show="vm.error" class="alert alert-danger row">
-					<span>{{ vm.error.message }}</span>
-				</div>
-
-				<form ng-submit="vm.register()" style="margin-top:30px;">
-
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Username" ng-model="vm.user.username"></input>
-					</div>
-					<div class="form-group">
-						<input type="password" class="form-control" placeholder="Password" ng-model="vm.user.password"></input>
-					</div>
-					<button type="submit" class="btn btn-primary btn-auth">Register</button>
-				</form>
-			</div>
-		</div>
-	</script>
-
-	<script type="text/ng-template" id="/login.html">
-		<div class="row">
-			<div class="col-sm-offset-3 col-sm-6">
-				<div class="page-header">
-					<h1 class="auth-h1"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Login</h1>
-				</div>
-
-				<div ng-show="error" class="alert alert-danger row">
-					<span>{{ error.message }}</span>
-				</div>
-
-				<form ng-submit="vm.logIn()" style="margin-top:30px;">
-
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Username" ng-model="vm.user.username"></input>
-					</div>
-					<div class="form-group">
-						<input type="password" class="form-control" placeholder="Password" ng-model="vm.user.password"></input>
-					</div>
-					<button type="submit" class="btn btn-primary btn-auth">Log In</button>
-				</div>
-			</div>
-		</form>
-	</script>
 
 </body>
 

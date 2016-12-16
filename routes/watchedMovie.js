@@ -94,10 +94,7 @@ router.get('/:watched', function(req, res, next) {
 // post: api/watched
 router.post('/', auth, function (req, res, next) {
 
-    console.log("in watched");
-
     var body = req.body;
-    console.log("req.body");
     if (!body.watchedOn || !body.rating) {
         return res.status(400).json({message: 'Please fill in the date and rating'});
     }
@@ -105,8 +102,6 @@ router.post('/', auth, function (req, res, next) {
     if (!body.releaseDate || !body.title) {
         return res.status(400).json({message: 'Something went wrong. Please try again.'});
     }
-
-    console.log(req.body);
 
     var watchedMovie = new WatchedMovie(req.body);
     var userid = req.payload._id;
@@ -121,8 +116,6 @@ router.post('/', auth, function (req, res, next) {
         if(!user){
             return next(new Error('User not found'))
         }
-
-        console.log("found user");
 
         watchedMovie.save(function (err, watchedMovie) {
             if (err) {

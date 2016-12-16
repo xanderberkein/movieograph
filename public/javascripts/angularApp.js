@@ -6,9 +6,6 @@ angular.module('movieograph').config(
             controller: 'MainController',
             controllerAs: 'vm',
             resolve: {
-                // postPromise: ['posts', function(posts) {
-                //     return posts.getAll();
-                // }],
                 movies: ['movies', 'auth', function(movies, auth){
                     return movies.getMainPage(auth.currentUserId());
                 }]
@@ -23,7 +20,6 @@ angular.module('movieograph').config(
                     return movies.get($stateParams.id);
                 }],
                 user: ['users', 'auth', function(users, auth) {
-                    console.log("in user");
                     if(auth.isLoggedIn()){
                         return users.getWatched(auth.currentUserId())
                     }
@@ -37,9 +33,7 @@ angular.module('movieograph').config(
             controllerAs: 'vm',
             resolve: {
                 movies: ['$stateParams', 'movies', function($stateParams, movies) {
-                    console.log(movies.discover());
                     return movies.discover($stateParams.page);
-                    // return movies.discover($stateParams.id);
                 }]
             }
         }).state('search', {
@@ -49,9 +43,7 @@ angular.module('movieograph').config(
             controllerAs: 'vm',
             resolve: {
                 movies: ['$stateParams', 'movies', function($stateParams, movies) {
-                    console.log("resolve");
                     return movies.getSearch($stateParams.id);
-                    // return movies.discover($stateParams.id);
                 }]
             }
         }).state('watched', {
@@ -70,16 +62,6 @@ angular.module('movieograph').config(
                         return users.getWatched(auth.currentUserId())
                     }
                     return "";
-                }]
-            }
-        }).state('posts', {
-            url: '/posts/{id}',
-            templateUrl: '/posts.html',
-            controller: 'PostsController',
-            controllerAs: 'vm',
-            resolve: {
-                post: ['$stateParams', 'posts', function($stateParams, posts) {
-                    return posts.get($stateParams.id);
                 }]
             }
         }).state('login', {

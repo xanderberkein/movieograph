@@ -1,0 +1,24 @@
+<script type="text/ng-template" id="/login.html">
+    <div class="row">
+        <div class="col-sm-offset-3 col-sm-6">
+            <div class="page-header">
+                <h1 class="auth-h1"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Login</h1>
+            </div>
+
+            <div ng-show="error" class="alert alert-danger row">
+                <span>{{ error.message }}</span>
+            </div>
+
+            <form ng-submit="vm.logIn()" style="margin-top:30px;">
+
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Username" ng-model="vm.user.username"></input>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Password" ng-model="vm.user.password"></input>
+                </div>
+                <button type="submit" class="btn btn-primary btn-auth">Log In</button>
+            </div>
+        </div>
+    </form>
+</script>
