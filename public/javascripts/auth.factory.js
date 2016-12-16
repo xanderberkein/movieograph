@@ -11,11 +11,11 @@ angular.module('flapperNews').factory('auth', function($http, $window) {
     };
 
     function saveToken(token) {
-        $window.localStorage['flapper-news-token'] = token;
+        $window.localStorage['movieograph-token'] = token;
     }
 
     function getToken() {
-        return $window.localStorage['flapper-news-token'];
+        return $window.localStorage['movieograph-token'];
     };
 
     function isLoggedIn() {
@@ -40,6 +40,7 @@ angular.module('flapperNews').factory('auth', function($http, $window) {
     };
 
     function currentUserId() {
+        console.log("currentuserid auth.factory")
         if (auth.isLoggedIn()) {
             var token = auth.getToken();
             var payload = angular.fromJson($window.atob(token.split('.')[1]));
@@ -49,32 +50,22 @@ angular.module('flapperNews').factory('auth', function($http, $window) {
     };
 
     function register(user) {
-        console.log(user);
-        return $http.jsonp('https://api.themoviedb.org/3/authentication/guest_session/new?api_key=7a80f3ccc9d8fde85933817aca0e6092&callback=JSON_CALLBACK')
-            .then(function(res) {
-                console.log("vlakvoorpost" + res.data.guest_session_id);
-                return $http.jsonp('https://api.themoviedb.org/3/authentication/guest_session/new?api_key=7a80f3ccc9d8fde85933817aca0e6092&callback=JSON_CALLBACK')
-                    .then(function(res2) {
-                        console.log(res.data);
-                        console.log(user);
-                        console.log(res2.data);
-                        user.watchListId = res.data.guest_session_id;
-                        user.watchedId = res2.data.guest_session_id;
-                        console.log(user);
-                        return $http.post('/register', user).then(function(data) {
-                            console.log("na post");
-                            console.log(data.data.token);
-                            auth.saveToken(data.data.token);
-                        },
-                        function(error){
-                            throw error;
-                        });
-                    },
-            function(error){
-                throw error;
-            });
-        }, function(error){
-            throw error;
+        // // create guest account on tmdb for watchlist
+        // return $http.jsonp('https://api.themoviedb.org/3/authentication/guest_session/new?api_key=7a80f3ccc9d8fde85933817aca0e6092&callback=JSON_CALLBACK')
+        //     .then(function(res) {
+        //         // create guest account on tmdb for watchedlist
+        //         return $http.jsonp('https://api.themoviedb.org/3/authentication/guest_session/new?api_key=7a80f3ccc9d8fde85933817aca0e6092&callback=JSON_CALLBACK')
+        //             .then(function(res2) {
+        //                 user.watchListId = res.data.guest_session_id;
+        //                 user.watchedId = res2.data.guest_session_id;
+        //                 // create account on own api
+        //                 return $http.post('/register', user).then(function(data) {
+        //                     auth.saveToken(data.data.token);
+        //                 });
+        //         });
+        // });
+        return $http.post("/register", user).success(function(data) {
+          auth.saveToken(data.token);
         });
     };
 
@@ -85,7 +76,7 @@ angular.module('flapperNews').factory('auth', function($http, $window) {
     };
 
     function logOut() {
-        $window.localStorage.removeItem('flapper-news-token');
+        $window.localStorage.removeItem('movieograph-token');
     };
 
     return auth;

@@ -5,6 +5,7 @@ angular.module('flapperNews').controller('MainController',
         vm.isLoggedIn = auth.isLoggedIn;
         vm.posts = posts.posts;
         vm.movies = movies.discover;
+        vm.watchList = movies.watchList;
         //vm.movies = movies.movies;
         vm.addPost = addPost;
         vm.incrementUpvotes = incrementUpvotes;

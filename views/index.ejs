@@ -23,9 +23,9 @@
 
 	<script src="javascripts/angular.module.js"></script>
     <script src="javascripts/angularApp.js"></script>
+    <script src="javascripts/users.factory.js"></script>
     <script src="javascripts/posts.factory.js"></script>
     <script src="javascripts/movies.factory.js"></script>
-    <script src="javascripts/movies2.factory.js"></script>
     <script src="javascripts/auth.factory.js"></script>
     <script src="javascripts/main.controller.js"></script>
     <script src="javascripts/posts.controller.js"></script>
@@ -146,7 +146,7 @@
 		        </div>
 
 				<div class="row">
-					<div class="col-md-4" ng-repeat="movie in vm.movies | limitTo: 6">
+					<div class="col-md-4" ng-repeat="movie in vm.watchList">
 						<div class="card">
 							<div class="row row-eq-height">
 								<div class="col-sm-5 card-img-wrapper">
@@ -280,7 +280,8 @@
 						<div class="row">
 							<div class="col-md-12">
 								<span class="votes"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> {{vm.movie.vote_average}}</span>
-								<a href="">Add this movie to your watchlist</a>
+								<a ng-hide="vm.alreadyStarred" href="" ng-click="vm.addToWatchList()">Add this movie to your watchlist</a>
+								<a ng-show="vm.alreadyStarred" href="" ng-click="vm.removeFromWatchList()">Delete this movie from your watchlist</a>
 							</div>
 							<div class="col-md-12 buttons">
 								<a href="http://www.imdb.com/title/{{vm.movie.imdb_id}}" target="_blank" class="btn btn-default">View on imdb</a>

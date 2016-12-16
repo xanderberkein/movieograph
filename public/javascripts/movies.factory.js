@@ -13,18 +13,32 @@ angular.module('flapperNews').factory('movies', function($http, auth) {
         upvoteComment: upvoteComment
     };
 
-    function discover() {
+    function discover(userid) {
+        // var array = [346672, 259316, 297761];
+        var into = [];
+        var c = {
+            discover: "",
+            watchList: ""
+        }
         return $http.jsonp('https://api.themoviedb.org/3/discover/movie?api_key=7a80f3ccc9d8fde85933817aca0e6092&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&callback=JSON_CALLBACK')
             .then(function(res) {
-                return $http.jsonp('https://api.themoviedb.org/3/discover/movie?api_key=7a80f3ccc9d8fde85933817aca0e6092&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&callback=JSON_CALLBACK')
+                c.discover = res.data.results;
+                $http.get('/users/' + userid)
                     .then(function(res2) {
-                        var c = {
-                            discover: res.data.results,
-                            watchList: res2.data.results
-                        }
-                        console.log(c);
-                        return c;
+                        var array = res2.data.watchList;
+                        array.forEach(function(id, i){
+                            $http.jsonp('https://api.themoviedb.org/3/movie/' + id + '?api_key=7a80f3ccc9d8fde85933817aca0e6092&language=en-US&callback=JSON_CALLBACK')
+                                .then(function(res3) {
+                                    into[i] = res3.data
+                                })
+                        })
                     })
+            })
+            .then(function() {
+                    c.watchList =  into;
+                    console.log(c);
+                    return c;
+
                 // console.log("in discover");
                 // var test = $http.jsonp('https://api.themoviedb.org/3/discover/movie?api_key=7a80f3ccc9d8fde85933817aca0e6092&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&callback=JSON_CALLBACK');
                 // var c = {
@@ -54,6 +68,12 @@ angular.module('flapperNews').factory('movies', function($http, auth) {
                 return xd;
             });
     };
+
+    // function addToWatchList(userid) {
+    //     return $http.post('/users/' + watchlist, {
+    //         headers: {Authorization: 'Bearer ' + auth.getToken()}
+    //     });
+    // }
 
     // function get(id) {
     //     return $http.get('/posts/' + id).then(function(res) {

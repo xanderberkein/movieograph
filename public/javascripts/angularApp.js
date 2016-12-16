@@ -10,9 +10,10 @@ angular.module('flapperNews').config(
                     console.log("post promoise 1");
                     return posts.getAll();
                 }],
-                movies: ['movies', function(movies){
+                movies: ['movies', 'auth', function(movies, auth){
                     console.log("post promise 2");
-                    return movies.discover();
+                    console.log("na auth")
+                    return movies.discover(auth.currentUserId());
                 }]
             }
         }).state('movie', {
@@ -23,6 +24,10 @@ angular.module('flapperNews').config(
             resolve: {
                 movie: ['$stateParams', 'movies', function($stateParams, movies) {
                     return movies.get($stateParams.id);
+                }],
+                user: ['users', 'auth', function(users, auth) {
+                    console.log("in user");
+                    return users.get(auth.currentUserId());
                 }]
             }
         }).state('posts', {
