@@ -145,28 +145,41 @@ router.post('/', auth, function (req, res, next) {
 });
 
 
-// Edit watchedMovie
-//router.put('/:watched/', auth, function (req, res, next) {
-router.put('/:watched/', function (req, res, next) {
+// Delete watchedMovie
+//router.delete('/:watched/', auth, function (req, res, next) {
 
-    var watchedMovie = req.watchedMovie;
-    var body = req.body;
+router.delete('/:watched', auth, function(req, res, next) {
 
-    if (!body.watchedOn) {
-        return res.status(400).json({message: 'Gelieve de bekijkdatum in te vullen'});
-    }
+    var userid = req.payload._id;
+    var query = User.findById(userid);
 
-    watchedMovie.watchedOn = body.watchedOn;
-    watchedMovie.rating = body.rating;
-    watchedMovie.note = body.note;
-
-    menu.save(function(err, watchedMovie) {
-        if (err) {
+    query.exec(function(err, user){
+        if(err){
             return next(err);
         }
 
-        res.json(watchedMovie);
+        if(!user){
+            return next(new Error('User not found'))
+        }
+
+        user.watched.pull(req.watchedMovie._id);
+        user.save(function(err){
+            if (err) {
+                return next(err);
+            }
+        });
+
+        req.watchedMovie.remove(function(err, watched) {
+            if (err) {
+                return next(err);
+            }
+
+            res.json(watched);
+        });
+
     });
+
 });
+
 
 module.exports = router;
