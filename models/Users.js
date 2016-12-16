@@ -16,8 +16,7 @@ var UserSchema = new mongoose.Schema({
         lowercase: true,
         // unique: true
     },
-    watchListId: String,
-    watchedId: String,
+    watchList: [String],
     watched: [{type: mongoose.Schema.Types.ObjectId, ref: 'WatchedMovie'}],
     activities: [{type: mongoose.Schema.Types.ObjectId, ref: 'Activity'}]
 });

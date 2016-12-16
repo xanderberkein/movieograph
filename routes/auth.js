@@ -22,8 +22,8 @@ router.post('/register', function(req, res, next) {
     var user = new User();
     user.username = req.body.username;
     user.setPassword(req.body.password);
-    user.watchListId = req.body.watchListId;
-    user.watchedId = req.body.watchedId;
+    // user.watchListId = req.body.watchListId;
+    // user.watchedId = req.body.watchedId;
 
     console.log(user);
 

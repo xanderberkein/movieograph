@@ -80,6 +80,58 @@ router.post('/watchlist', auth, function (req, res, next) {
 
 });
 
+router.delete('/watchlist/:id', auth, function (req, res, next) {
+    console.log("test");
+
+    var movieid = req.params.id;
+
+    var userid = req.payload._id;
+
+    var query = User.findById(userid);
+
+    query.exec(function(err, user){
+        if(err){
+            return next(err);
+        }
+
+        if(!user){
+            return next(new Error('User not found'))
+        }
+
+        var index = user.watchList.indexOf(movieid);
+        console.log('index = ' + index + ', movieide = ' + movieid);
+        if (index > -1) {
+            user.watchList.splice(index, 1);
+        }
+
+        user.save(function(err, user) {
+            if (err) {
+                return next(err);
+            }
+
+            res.json(user);
+        })
+
+            // user.watchList.remove(function(err, movieid) {
+            //     if (err) {
+            //       return next(err);
+            //     }
+            //
+            //     res.json(movieid);
+            // });
+            // user.watchList.push(movieid);
+            // user.save(function(err){
+            //     if(err){
+            //         return next(err);
+            //     }
+            //
+            //     res.json(user);
+            // })
+
+    });
+
+});
+
 
 
 module.exports = router;
