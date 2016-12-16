@@ -7,12 +7,9 @@ angular.module('flapperNews').config(
             controllerAs: 'vm',
             resolve: {
                 postPromise: ['posts', function(posts) {
-                    console.log("post promoise 1");
                     return posts.getAll();
                 }],
                 movies: ['movies', 'auth', function(movies, auth){
-                    console.log("post promise 2");
-                    console.log("na auth")
                     return movies.discover(auth.currentUserId());
                 }]
             }
@@ -27,7 +24,10 @@ angular.module('flapperNews').config(
                 }],
                 user: ['users', 'auth', function(users, auth) {
                     console.log("in user");
-                    return users.get(auth.currentUserId());
+                    if(auth.isLoggedIn()){
+                        return users.get(auth.currentUserId())
+                    }
+                    return "";
                 }]
             }
         }).state('posts', {
