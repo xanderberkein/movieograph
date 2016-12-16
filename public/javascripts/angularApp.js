@@ -6,11 +6,11 @@ angular.module('movieograph').config(
             controller: 'MainController',
             controllerAs: 'vm',
             resolve: {
-                postPromise: ['posts', function(posts) {
-                    return posts.getAll();
-                }],
+                // postPromise: ['posts', function(posts) {
+                //     return posts.getAll();
+                // }],
                 movies: ['movies', 'auth', function(movies, auth){
-                    return movies.discover(auth.currentUserId());
+                    return movies.getMainPage(auth.currentUserId());
                 }]
             }
         }).state('movie', {
@@ -33,11 +33,25 @@ angular.module('movieograph').config(
         }).state('discover', {
             url: '/discover/{id}',
             templateUrl: '/discover.html',
-            controller: 'MainController',
+            controller: 'DiscoverController',
             controllerAs: 'vm',
             resolve: {
-                post: ['$stateParams', 'posts', function($stateParams, posts) {
-                    return posts.get($stateParams.id);
+                movies: ['$stateParams', 'movies', function($stateParams, movies) {
+                    console.log(movies.discover());
+                    return movies.discover();
+                    // return movies.discover($stateParams.id);
+                }]
+            }
+        }).state('search', {
+            url: '/search/{id}',
+            templateUrl: '/search.html',
+            controller: 'DiscoverController',
+            controllerAs: 'vm',
+            resolve: {
+                movies: ['$stateParams', 'movies', function($stateParams, movies) {
+                    console.log("resolve");
+                    return movies.getSearch($stateParams.id);
+                    // return movies.discover($stateParams.id);
                 }]
             }
         }).state('posts', {

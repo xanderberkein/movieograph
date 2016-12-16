@@ -4,7 +4,9 @@ angular.module('movieograph').factory('movies', function($http, auth) {
         movies: [],
         // posts: [],
         //getAll: getAll,
+        getMainPage: getMainPage,
         discover: discover,
+        getSearch: getSearch,
         // getWatchList: getWatchList,
         create: create,
         upvote: upvote,
@@ -13,7 +15,7 @@ angular.module('movieograph').factory('movies', function($http, auth) {
         upvoteComment: upvoteComment
     };
 
-    function discover(userid) {
+    function getMainPage(userid) {
         // var array = [346672, 259316, 297761];
         var into = [];
         var c = {
@@ -51,12 +53,28 @@ angular.module('movieograph').factory('movies', function($http, auth) {
 
     };
 
+    function discover(){
+        return $http.jsonp('https://api.themoviedb.org/3/discover/movie?api_key=7a80f3ccc9d8fde85933817aca0e6092&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&callback=JSON_CALLBACK')
+            .then(function(res) {
+                console.log(res.data);
+                return res.data;
+        })
+    }
+
     function get(id) {
         return $http.jsonp('https://api.themoviedb.org/3/movie/' + id + '?api_key=7a80f3ccc9d8fde85933817aca0e6092&language=en-US&append_to_response=credits&callback=JSON_CALLBACK')
             .then(function(res) {
                 return res.data;
         });
     };
+
+    function getSearch(query){
+        return $http.jsonp('https://api.themoviedb.org/3/search/movie?api_key=7a80f3ccc9d8fde85933817aca0e6092&language=en-US&query=' + query + '&page=1&include_adult=false&callback=JSON_CALLBACK')
+            .then(function(res) {
+                console.log(res.data);
+                return res.data;
+        });
+    }
 
     // function getWatchList(userid) {
     //     console.log("in getWatchList");

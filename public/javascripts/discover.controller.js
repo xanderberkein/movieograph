@@ -1,15 +1,21 @@
-angular.module('movieograph').controller('MainController',
-    function(movies, auth) {
+angular.module('movieograph').controller('DiscoverController',
+    function(movies, auth, $state) {
+
 
         var vm = this;
         vm.isLoggedIn = auth.isLoggedIn;
-        vm.movies = movies.discover;
-        vm.watchList = movies.watchList;
-        //vm.movies = movies.movies;
-        // vm.addPost = addPost;
-        // vm.incrementUpvotes = incrementUpvotes;
+        vm.movies = movies.results;
+        vm.page = movies.page;
+        vm.search = search;
 
         console.log(vm.movies);
+
+        function search(){
+            console.log("xd");
+            $state.go('search', {id: vm.query});
+        }
+
+
 
 
         // function addPost() {

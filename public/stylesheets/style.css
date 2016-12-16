@@ -72,6 +72,10 @@ strong, th{
     font-weight: 500;
 }
 
+span.glyphicon {
+    color: #CDDC39;
+}
+
 
 /* Card */
 
@@ -123,10 +127,6 @@ strong, th{
     overflow: hidden;
     text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
-}
-
-span.glyphicon {
-    color: #CDDC39;
 }
 
 .card-stars {
