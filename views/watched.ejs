@@ -13,30 +13,32 @@
 
             <div class="watched-info">All the movies you ever watched! Click on a column title to order by that column.</div>
 
-            <table class="table table-responsive watched-movies">
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Year</th>
-                    <th>Watched on</th>
-                    <th>Rating</th>
-                    <th>Note</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="watched in vm.watched | orderBy: 'vm.order'">
-                    <td class="watched-important watched-title">{{watched.title | limitTo: 40}}</td>
-                    <td>{{watched.releaseDate | date:'yyyy'}}</td>
-                    <td>{{watched.watchedOn | date:'dd MMMM yyyy'}}</td>
-                    <td class="watched-important"><span class="watched-rating">{{watched.rating}}</span> <small>/10</small></td>
-                    <td>{{watched.note | limitTo: 45}}</td>
-                    <td><a href="/#/movie/{{watched.movieId}}">More info</a></td>
-                    <td><a href="" ng-click="vm.removeFromWatched(watched._id)">Delete</a></td>
-                </tr>
-            </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table watched-movies">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Year</th>
+                        <th>Watched on</th>
+                        <th>Rating</th>
+                        <th>Note</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="watched in vm.watched | orderBy: 'vm.order'">
+                        <td class="watched-important watched-title">{{watched.title | limitTo: 40}}</td>
+                        <td>{{watched.releaseDate | date:'yyyy'}}</td>
+                        <td>{{watched.watchedOn | date:'dd MMMM yyyy'}}</td>
+                        <td class="watched-important"><span class="watched-rating">{{watched.rating}}</span> <small>/10</small></td>
+                        <td>{{watched.note | limitTo: 45}}</td>
+                        <td><a href="/#/movie/{{watched.movieId}}">More info</a></td>
+                        <td><a href="" ng-click="vm.removeFromWatched(watched._id)">Delete</a></td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
 
             <div class="row">
                 <div class="col-md-4" ng-repeat="movie in vm.movies">
