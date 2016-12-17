@@ -17,17 +17,47 @@
                 <table class="table watched-movies">
                 <thead>
                     <tr>
-                        <th>Title</th>
-                        <th>Year</th>
-                        <th>Watched on</th>
-                        <th>Rating</th>
-                        <th>Note</th>
+                        <th>
+                            <a href="" ng-click="vm.orderBy='title'; vm.reverseSort = !vm.reverseSort">Title
+                            <span ng-show="vm.orderBy == 'title'">
+                                <span class="glyphicon glyphicon-menu-down" ng-show="vm.reverseSort"></span>
+                                <span class="glyphicon glyphicon-menu-up" ng-hide="vm.reverseSort"></span>
+                            </span>
+                            </a>
+                        </th>
+                        <th>
+                            <a href="" ng-click="vm.orderBy='releaseDate'; vm.reverseSort = !vm.reverseSort">Year
+                            <span ng-show="vm.orderBy == 'releaseDate'">
+                                <span class="glyphicon glyphicon-menu-down" ng-show="vm.reverseSort"></span>
+                                <span class="glyphicon glyphicon-menu-up" ng-hide="vm.reverseSort"></span>
+                            </span>
+                            </a>
+                        </th>
+                        <th>
+                            <a href="" ng-click="vm.orderBy='watchedOn'; vm.reverseSort = !vm.reverseSort">Watched on
+                            <span ng-show="vm.orderBy == 'watchedOn'">
+                                <span class="glyphicon glyphicon-menu-down" ng-show="vm.reverseSort"></span>
+                                <span class="glyphicon glyphicon-menu-up" ng-hide="vm.reverseSort"></span>
+                            </span>
+                            </a>
+                        </th>
+                        <th>
+                            <a href="" ng-click="vm.orderBy='rating'; vm.reverseSort = !vm.reverseSort">Rating
+                            <span ng-show="vm.orderBy == 'rating'">
+                                <span class="glyphicon glyphicon-menu-down" ng-show="vm.reverseSort"></span>
+                                <span class="glyphicon glyphicon-menu-up" ng-hide="vm.reverseSort"></span>
+                            </span>
+                            </a>
+                        </th>
+                        <th>
+                            Note
+                        </th>
                         <th></th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="watched in vm.watched | orderBy: 'vm.order'">
+                    <tr ng-repeat="watched in vm.watched | orderBy: vm.orderBy: vm.reverseSort">
                         <td class="watched-important watched-title">{{watched.title | limitTo: 40}}</td>
                         <td>{{watched.releaseDate | date:'yyyy'}}</td>
                         <td>{{watched.watchedOn | date:'dd MMMM yyyy'}}</td>

@@ -309,6 +309,20 @@ textarea{
     margin-bottom: 2em;
 }
 
+th a, th a:visited, th a:focus, th span.glyphicon {
+    text-decoration: none;
+    color: black;
+}
+
+th span.glyphicon{
+    font-size: 0.8em;
+}
+
+th a:hover{
+    text-decoration: none;
+    color: #AFB42B;
+}
+
 .table>tbody>tr>td{
     padding-top: 1em;
     height: 2.5;

@@ -66,7 +66,7 @@
 	      <ul class="nav navbar-nav">
 	        <li><a href="/#/home">Home</a></li>
 	        <li><a href="/#/discover/1">Discover</a></li>
-			<li><a href="/#/watched">Watched movies</a></li>
+			<li ng-show="vm.isLoggedIn()"><a href="/#/watched">Watched movies</a></li>
 	      </ul>
 	      <div class="navbar-form navbar-left">
 	        <div class="form-group">

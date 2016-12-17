@@ -6,11 +6,8 @@ angular.module('movieograph').controller('WatchedController',
         vm.isLoggedIn = auth.isLoggedIn;
         vm.watched = user.watched;
         vm.removeFromWatched = removeFromWatched;
-        vm.order = "title";
-
-        function search(){
-            $state.go('search', {id: vm.query});
-        }
+        vm.orderBy = "watchedOn";
+        vm.reverseSort = true;
 
         function removeFromWatched(id){
             users.removeFromWatched(id).success(function(watched) {
