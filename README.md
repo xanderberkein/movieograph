@@ -2,4 +2,4 @@
 Keep track of your watched and to-watch movies
 
 ### See it live
-http://movieograph.xanderberkein.be
+https://movieograph.herokuapp.com/#/home
