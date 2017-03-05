@@ -14,7 +14,7 @@ require('./models/WatchedMovies');
 
 require('./config/passport');
 
-mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://127.0.0.1/movieograph');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1/movieograph');
 
 
 var index = require('./routes/index');
